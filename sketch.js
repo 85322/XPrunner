@@ -1,14 +1,13 @@
 'use strict';
 
 class Bubble {
-  constructor(r){
+  constructor(){
     this.x = 350;
     this.y = random(width, width * -1);
     this.speed = random(-1, -5);
     this.red = random(0, 255);
     this.green = random(0, 255);
     this.blue = random(0, 255);
-    this.r = r;
 }
   move(){
     this.x = this.x + this.speed;
@@ -16,7 +15,7 @@ class Bubble {
   show(){
     stroke(255);
     fill(this.red, this.green, this.blue);
-    rect(this.x, this.y, 100, 100,);
+    rect(this.x, this.y, 50, 50,);
   }
 }
 const bubbles = [];
