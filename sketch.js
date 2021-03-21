@@ -1,6 +1,6 @@
 'use strict';
 
-class Bubble {
+class Obstacle {
   constructor(){
     this.x = 350;
     this.y = random(width, width * -1);
@@ -13,12 +13,26 @@ class Bubble {
     this.x = this.x + this.speed;
   }
   show(){
-    stroke(255);
+    stroke(255); 
     fill(this.red, this.green, this.blue);
     rect(this.x, this.y, 50, 50,);
   }
 }
-const bubbles = [];
+const obstacles = [];
+const players = 0;
+
+class Player {
+  constructor(){
+    this.x = 0;
+    this.y = 0;
+    
+  }
+  show(){
+    stroke(255); 
+    fill(red);
+    rect(this.x, this.y, 150, 150,);
+  }
+}
 
 function setup (){
     createCanvas (700, 450, WEBGL);
@@ -27,25 +41,27 @@ function setup (){
     textFont(ExoBlack);
     
     for (let i = 0; i < 10; i++) {
-      bubbles[i] = new Bubble(random(2, 15));   
-      print(bubbles[i]);
+      obstacles[i] = new Obstacle(random(2, 15));   
+      print(obstacles[i]);
     }
   }
   
   function draw(){ 
     background(0, 0, 0);
   
-    bubbles.forEach(bubbles => {
-      bubbles.move();
-      bubbles.show();
+    new Player();
+
+    obstacles.forEach(obstacles => {
+      obstacles.move();
+      obstacles.show();
       
-    if (bubbles.x < width*-1) {
-      bubbles.x = 350;
-      bubbles.y = Math.floor(random(250,-250));    
+    if (obstacles.x < width*-1) {
+      obstacles.x = 350;
+      obstacles.y = Math.floor(random(250,-250));    
     }
   });
 
     // rotateX(millis() / 1000);
     // rotateY(millis() / 1000);
-    // text("random \nbubbles", -50, -50);
+    // text("random \nobstacles", -50, -50);
   }
