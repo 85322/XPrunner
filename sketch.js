@@ -3,8 +3,8 @@
 class Obstacle {
   constructor(){
     this.x = 350;
-    this.y = random(width, width * -1);
-    this.speed = random(-1, -5);
+    this.y = random(ObstaclePositionArray.length);
+    this.speed = -5;
     this.red = random(0, 255);
     this.green = random(0, 255);
     this.blue = random(0, 255);
@@ -20,6 +20,10 @@ class Obstacle {
 }
 const obstacles = [];
 const players = 0;
+const ObstaclePositionArrayValues = [0,150];
+const ObstaclePositionArray = (list)  => {
+  return list(Math.floor(Math.random()*list.length));
+}
 
 class Player {
   constructor(){
@@ -49,7 +53,7 @@ function setup (){
   function draw(){ 
     background(0, 0, 0);
   
-    new Player();
+    new Player(); //geht noch nicht
 
     obstacles.forEach(obstacles => {
       obstacles.move();
@@ -57,7 +61,7 @@ function setup (){
       
     if (obstacles.x < width*-1) {
       obstacles.x = 350;
-      obstacles.y = Math.floor(random(250,-250));    
+      obstacles.y = Math.floor(random(ObstaclePositionArray.length));    
     }
   });
 
