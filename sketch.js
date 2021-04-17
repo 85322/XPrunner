@@ -4,7 +4,7 @@ class Obstacle {
   constructor(){
     this.x = 350;
     this.y = 0;
-    this.speed = -5;
+    this.speed = random(-2, -7);
     this.red = random(0, 255);
     this.green = random(0, 255);
     this.blue = random(0, 255);
@@ -19,7 +19,7 @@ class Obstacle {
   }
 }
 const obstacles = [];
-const players = 0;
+// const players = 0; //?
 const ObstaclePositionArrayValues = [0,150];
 function randomObstacle(ObstaclePositionArrayValues) {
   return ObstaclePositionArrayValues[Math.floor(Math.random() * ObstaclePositionArrayValues.length)];
@@ -29,12 +29,15 @@ class Player {
   constructor(){
     this.x = 0;
     this.y = 0;
+    this.display = function(){
+      stroke(255); 
+      fill(red);
+      rect(this.x, this.y, 150, 150,);
+    }
     
   }
   show(){
-    stroke(255); 
-    fill(red);
-    rect(this.x, this.y, 150, 150,);
+    
   }
 }
 
@@ -44,17 +47,25 @@ function setup (){
     let ExoBlack = loadFont('assets/Exo-Black.otf');
     textFont(ExoBlack);
     
-    for (let i = 0; i < 10; i++) {
-      obstacles[i] = new Obstacle(random(2, 15));   
+    for (let i = 0; i < 2; i++) {
+      obstacles[i] = new Obstacle();   
       print(obstacles[i]);
     }
   }
-  
-  function draw(){ 
-    background(0, 0, 0);
-  
-    new Player(); //geht noch nicht
 
+  function draw(){ 
+    background(135, 206, 235);
+  
+    //Floor
+    noStroke();
+    fill(0, 128, 0);
+    rect(-350, 100, width, height);
+
+    //Player
+    new Player();   
+    //player geht noch nicht
+    // 
+    //Obstacles
     obstacles.forEach(obstacles => {
       obstacles.move();
       obstacles.show();
@@ -64,6 +75,7 @@ function setup (){
       obstacles.x = 350;
       obstacles.y = randomObstacle(ObstaclePositionArrayValues);    
     }
+ 
   });
 
     // rotateX(millis() / 1000);
