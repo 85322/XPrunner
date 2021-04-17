@@ -3,7 +3,7 @@
 class Obstacle {
   constructor(){
     this.x = 350;
-    this.y = random(ObstaclePositionArray.length);
+    this.y = 0;
     this.speed = -5;
     this.red = random(0, 255);
     this.green = random(0, 255);
@@ -21,8 +21,8 @@ class Obstacle {
 const obstacles = [];
 const players = 0;
 const ObstaclePositionArrayValues = [0,150];
-const ObstaclePositionArray = (list)  => {
-  return list(Math.floor(Math.random()*list.length));
+function randomObstacle(ObstaclePositionArrayValues) {
+  return ObstaclePositionArrayValues[Math.floor(Math.random() * ObstaclePositionArrayValues.length)];
 }
 
 class Player {
@@ -60,8 +60,9 @@ function setup (){
       obstacles.show();
       
     if (obstacles.x < width*-1) {
+      
       obstacles.x = 350;
-      obstacles.y = Math.floor(random(ObstaclePositionArray.length));    
+      obstacles.y = randomObstacle(ObstaclePositionArrayValues);    
     }
   });
 
