@@ -7,18 +7,18 @@ class Player {
   constructor(){
     this.x = -300;
     this.y = 150; 
-    this.speedY = -5;
+    this.speedY = 0;
     this.speedX = 0;
     this.red = random(0, 255);
     this.green = random(0, 255);
     this.blue = random(0, 255);
     this.gravitation = 2;
-}
+}   
   move(){
     this.x = this.x + this.speedX;
     this.y = this.y + this.speedY;
     this.speedX = this.speedX * 0.1; 
-    this.speedY = this.speedY * -0.78 + this.gravitation;
+    this.speedY = this.speedY * 0.5 + this.gravitation;
   }
   show(){
     stroke(255); 
@@ -31,7 +31,7 @@ class Obstacle {
   constructor(){
     this.x = 350;
     this.y = 0;
-    this.speed = random(-2, -7);
+    this.speed = random(-3, -7);
     this.red = random(0, 255);
     this.green = random(0, 255);
     this.blue = random(0, 255);
@@ -76,7 +76,7 @@ function setup (){
     let ExoBlack = loadFont('assets/Exo-Black.otf');
     textFont(ExoBlack);
     
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
       obstacles[i] = new Obstacle();   
       print(obstacles[i]);
 
@@ -101,10 +101,10 @@ function setup (){
     player.show();
 
    if (keyIsDown(32)) {
-    player.speedY = -10;
+    player.speedY = -150;
     ground = false;
     print(ground);  
-  };
+  } 
 
   if (player.y = 150) {
     ground = true;
@@ -115,7 +115,7 @@ function setup (){
   if (ground) {
     player.gravitation = 0;
   } else {
-    player.gravitation = 2;
+    player.gravitation = 0.5;
   }
   
     //Obstacles
@@ -124,7 +124,7 @@ function setup (){
       obstacles.show();
       
     if (obstacles.x < width*-1) {
-      
+      obstacles.speed =  random(-3, -10);
       obstacles.x = 350;
       obstacles.y = randomObstacle(ObstaclePositionArrayValues);    
     }
