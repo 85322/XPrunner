@@ -1,23 +1,24 @@
 'use strict';
 
 let player;
-let ground = false;
+let ground = true;
 
 class Player {
   constructor(){
     this.x = -300;
     this.y = 150; 
-    this.speedY = 0;
+    this.speedY = -5;
     this.speedX = 0;
     this.red = random(0, 255);
     this.green = random(0, 255);
     this.blue = random(0, 255);
+    this.gravitation = 2;
 }
   move(){
     this.x = this.x + this.speedX;
     this.y = this.y + this.speedY;
-    this.speedX = this.speedX * 0.5; 
-    this.speedY = this.speedY * 0.6;
+    this.speedX = this.speedX * 0.1; 
+    this.speedY = this.speedY * -0.78 + this.gravitation;
   }
   show(){
     stroke(255); 
@@ -99,29 +100,24 @@ function setup (){
     player.move();
     player.show();
 
-
    if (keyIsDown(32)) {
     player.speedY = -10;
-   } else {
-     player.speedY = 2; //das ist nicht so schlau in verbindung mit collision
-   };
+    ground = false;
+    print(ground);  
+  };
 
-  //  const collision = (player, floor) => {
-  //   if (player.x == floor.x) {
-  //     player.speedY = 0;
-  //   }
-  //  }
+  if (player.y = 150) {
+    ground = true;
+  } else {
+    ground = false;
+  }
 
-  //  collision(); 
-if (player.y +100 > floor.y) {
-  player.speedY = 0;
-}
-
-  //  if (player.y = -300) {   geht noch nicht, verschwindet
-  //    player.speedY = 0;
-  //  }
-
-    
+  if (ground) {
+    player.gravitation = 0;
+  } else {
+    player.gravitation = 2;
+  }
+  
     //Obstacles
     obstacles.forEach(obstacles => {
       obstacles.move();
