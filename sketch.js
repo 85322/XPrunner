@@ -1,23 +1,23 @@
 'use strict';
 
+
 let player;
 let items;
+let ceiling;
 
 class Player {
   constructor(){
     this.x = -300;
-    this.y = 150; 
+    this.y = 127; 
     this.speedY = 10;
     this.speedX = 0;
     this.red = random(0, 255);
     this.green = random(0, 255);
     this.blue = random(0, 255);
-    this.gravitation = 0.5; //macht zur zeit nichts beim bewegen
+    this.gravitation = 0.5; 
   }    
   move(){
-    this.x = this.x + this.speedX;
     this.y = this.y + this.speedY;
-    this.speedX = this.speedX * 0.1; 
     this.speedY = this.speedY * 0.5 + this.gravitation;
   }
   show(){
@@ -58,9 +58,9 @@ function randomObstacle(ObstaclePositionArrayValues) {
 }
 
 class Floor {
-  constructor(){
-    this.x = -350;
-    this.y = 250;
+  constructor(x, y){
+    this.x = x;  
+    this.y = y;   
     this.width = width;
     this.height = -50;
     this.ground = true;
@@ -70,7 +70,6 @@ class Floor {
     fill(0,0,255);
     rect(this.x, this.y, this.width, this.height,);
 }
-
 }
 
 class Items {
@@ -101,25 +100,26 @@ function setup (){
 
     }
     player = new Player();
-    floor = new Floor();
+    floor = new Floor(-350, 250);
+    ceiling = new Floor(-350, -175);
     items = new Items();
   }
 
   function draw(){ 
     background(135, 206, 235);
 
-
     items.show();
     items.move();
     floor.show();
     player.move();
     player.show();
-
+    ceiling.show();
 
    //Movement & behavior
    if (keyIsDown(32)) {
     player.speedY = -20;
     floor.ground = false; 
+    print("Jump pressed");
   } else {
     floor.ground = true;
   }
@@ -164,4 +164,6 @@ function setup (){
     // rotateY(millis() / 1000);
     text("Points: ", -340, -200);
     fill(0, 102, 153, 51);
-  }
+
+
+   }
