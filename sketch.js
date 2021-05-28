@@ -159,23 +159,32 @@ const distanceCollisionCalc = (objectPosX, objectPosY) => {
 }
 
 distanceCollisionCalc(items.x, items.y);
-//distanceCollisionCalc(obstacles.x, obstacles.y);
 
     //Obstacles
     obstacles.forEach(obstacles => {
       obstacles.move();
       obstacles.show();
+
+    let d = dist(player.x, player.y, obstacles.x, obstacles.y);
+
+    if (d < 50) {
+      obstacles.x = 400;
+      obstacles.y = random (-170, 125);
+      player.lives = player.lives - 1;
+
+      //death screen mit optionen hier ?? ();
+    }  
       
-    if (obstacles.x < width*-1) {
+    if (obstacles.x < width * -1) {
       obstacles.speed = -10;
-      obstacles.x = 350;
+      obstacles.x = width;
       obstacles.y = randomObstacle(ObstaclePositionArrayValues);    
     }
 
     //Items
-    if (items.x < width*-1) {
+    if (items.x < width * -1) {
       items.speed =  random(-3, -10);
-      items.x = 350;
+      items.x = width;
       items.y = randomObstacle(ObstaclePositionArrayValues);    
     }
 
@@ -192,4 +201,5 @@ distanceCollisionCalc(items.x, items.y);
     text("Lives: " + player.lives, -340, -140);
     fill(255, 255, 255);
     text("Bonus: " + bonus + " x", -340, -120); 
+    
 }
