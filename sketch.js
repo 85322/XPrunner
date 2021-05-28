@@ -1,6 +1,5 @@
 'use strict';
 
-
 let player;
 let items;
 let ceiling;
@@ -8,7 +7,7 @@ let ceiling;
 class Player {
   constructor(){
     this.x = -300;
-    this.y = 127; 
+    this.y = 95; 
     this.speedY = 10;
     this.speedX = 0;
     this.red = random(0, 255);
@@ -51,7 +50,7 @@ class Obstacle {
 
 const obstacles = [];
 
-const ObstaclePositionArrayValues = [0,150];
+const ObstaclePositionArrayValues = [0,125,-170];
 
 function randomObstacle(ObstaclePositionArrayValues) {
   return ObstaclePositionArrayValues[Math.floor(Math.random() * ObstaclePositionArrayValues.length)];
@@ -100,7 +99,7 @@ function setup (){
 
     }
     player = new Player();
-    floor = new Floor(-350, 250);
+    floor = new Floor(-350, 230);
     ceiling = new Floor(-350, -175);
     items = new Items();
   }
@@ -116,7 +115,7 @@ function setup (){
     ceiling.show();
 
    //Movement & behavior
-   if (keyIsDown(32)) {
+   if (keyIsDown(32) && player.y > ceiling.y +20)  {
     player.speedY = -20;
     floor.ground = false; 
     print("Jump pressed");
@@ -164,6 +163,6 @@ function setup (){
     // rotateY(millis() / 1000);
     text("Points: ", -340, -200);
     fill(0, 102, 153, 51);
-
+    text("Y pos: " + Math.floor(player.y), -340, -180);
 
    }
