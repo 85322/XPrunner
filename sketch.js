@@ -82,9 +82,12 @@ class Items {
   }
 }
 
+
+//Sound
 let errorSound;
 let bgmSound;
 let chimeSound;
+let slider;
 
 function preload(){
 errorSound = loadSound("Sound/Windows_XP_Error_Sound_Effect.mp3");
@@ -98,7 +101,17 @@ function setup (){
     let ExoBlack = loadFont('assets/Exo-Black.otf');
     textFont(ExoBlack);
 
-    bgmSound.play();
+    bgmSound.loop();
+
+    document.getElementById("soundbtnoff").onclick=function(){
+      bgmSound.stop();
+    } 
+    document.getElementById("soundbton").onclick=function(){
+      bgmSound.loop();
+    } 
+
+    slider = createSlider(0, 1, 0.5, 0.01);
+
     
     for (let i = 0; i < 2; i++) {
       obstacles[i] = new Obstacle();   
@@ -110,6 +123,7 @@ function setup (){
     ceiling = new Floor(-350, -175);
     items = new Items();
 
+    //Keybinds
     const Action = {
       help()    {
         (window.alert("F1 = Help screen \n\nF4 = Reset")) 
@@ -134,7 +148,6 @@ function setup (){
       ['keydown', 'keyup'].forEach((evType) => {
       document.body.addEventListener(evType, keyHandler);
       });
-    
 }
 
 function draw(){ 
@@ -213,7 +226,7 @@ gameOver();
       obstacles.move();
       obstacles.show();
 
-    let d = dist(player.x, player.y, obstacles.x, obstacles.y);
+    const d = dist(player.x, player.y, obstacles.x, obstacles.y);
 
     if (d < 50) {
       obstacles.x = 400;
@@ -251,6 +264,14 @@ gameOver();
     fill(255, 255, 255);
     text("Bonus: " + bonus + " x", -340, -120); 
     
+const volumeSetting = (slidervalue) => {
+
+  const v = slidervalue;
+    bgmSound.setVolume(v);
+    errorSound.setVolume(v);
+    chimeSound.setVolume(v);
+  }
+  volumeSetting(slider.value());
 }
 
 
