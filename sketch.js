@@ -69,7 +69,7 @@ class Items {
   constructor(){
       this.x = 350;  
       this.y = random(-170,125);
-      this.speed = random(-3, -7);
+      this.speed = -12;
   }
     move(){
       this.x = this.x + this.speed;
@@ -82,11 +82,23 @@ class Items {
   }
 }
 
+let errorSound;
+let bgmSound;
+let chimeSound;
+
+function preload(){
+errorSound = loadSound("Sound/Windows_XP_Error_Sound_Effect.mp3");
+bgmSound = loadSound("Sound/Windows_XP_Installation_Music.mp3");
+chimeSound = loadSound("Sound/Windows_XP_Sound_Chimes.mp3");
+}
+
 function setup (){
     createCanvas (700, 450, WEBGL);
     textSize(25);
     let ExoBlack = loadFont('assets/Exo-Black.otf');
     textFont(ExoBlack);
+
+    bgmSound.play();
     
     for (let i = 0; i < 2; i++) {
       obstacles[i] = new Obstacle();   
@@ -97,6 +109,31 @@ function setup (){
     floor = new Floor(-350, 230);
     ceiling = new Floor(-350, -175);
     items = new Items();
+
+    const Action = {
+      help()    {
+        (window.alert("F1 = Help screen \n\nF4 = Reset")) 
+      },
+      
+      reset(){
+        location.reload();
+      }
+      };
+      
+      const keyAction = {
+      F1: { keydown: Action.help},
+      F4: { keydown: Action.reset}
+      };
+      
+      const keyHandler = (ev) => {
+      if (ev.repeat) return;  
+      if (!(ev.key in keyAction) || !(ev.type in keyAction[ev.key])) return;
+      keyAction[ev.key][ev.type]();
+      };
+      
+      ['keydown', 'keyup'].forEach((evType) => {
+      document.body.addEventListener(evType, keyHandler);
+      });
     
 }
 
@@ -135,10 +172,9 @@ const score = () => {
 
 const difficulty = () => {
   items.speed = items.speed - 1.5;
-  //obstacles.speed = obstacles.speed - 0.5;
 }
 
-const bonusReset = () => {
+const bonusReset = () => { 
   if(items.x < -430){
   bonus = 0;
 }
@@ -153,12 +189,24 @@ const distanceCollisionCalc = (objectPosX, objectPosY) => {
   if (d < 50) {
     score();
     difficulty();
-    items.x = 400;
+    chimeSound.play();
+    items.x = 350;
     items.y = random (-170, 125);
   }
 }
 
 distanceCollisionCalc(items.x, items.y);
+
+const gameOver = () => {
+  if (player.lives < 0){
+    document.activeElement.blur(window.alert);
+    errorSound.play();
+    window.alert("Game Over \n\nHigh Score: " + points );
+    location.reload();
+    
+  }
+}
+gameOver();
 
     //Obstacles
     obstacles.forEach(obstacles => {
@@ -171,6 +219,7 @@ distanceCollisionCalc(items.x, items.y);
       obstacles.x = 400;
       obstacles.y = random (-170, 125);
       player.lives = player.lives - 1;
+      errorSound.play();
 
       //death screen mit optionen hier ?? ();
     }  
@@ -183,7 +232,7 @@ distanceCollisionCalc(items.x, items.y);
 
     //Items
     if (items.x < width * -1) {
-      items.speed =  random(-3, -10);
+      items.speed =  -12;
       items.x = width;
       items.y = randomObstacle(ObstaclePositionArrayValues);    
     }
@@ -203,3 +252,5 @@ distanceCollisionCalc(items.x, items.y);
     text("Bonus: " + bonus + " x", -340, -120); 
     
 }
+
+
