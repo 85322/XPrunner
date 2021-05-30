@@ -14,7 +14,7 @@ class Player {
     this.speedY = 10;
     this.speedX = 0;
     this.gravitation = 0.5; 
-    this.lives = 5;
+    this.lives = 0;
   }    
   move(){
     this.y = this.y + this.speedY;
@@ -22,15 +22,15 @@ class Player {
   }
   show(){
     noStroke(); 
-    fill(89, 125, 219);
+    fill(255, 0);
     rect(this.x, this.y, 50, 50,);
   }
 }
 
 class Obstacle {
   constructor(){
-    this.x = 350;
-    this.y = random(-170,125);
+    this.x = 700;
+    this.y = random(100,300);
     this.speed = random(-3, -7);
 }
   move(){
@@ -38,14 +38,14 @@ class Obstacle {
   }
   show(){
     noStroke(); 
-    fill(89, 125, 219);
+    fill(255, 0);
     rect(this.x, this.y, 50, 50,);
   }
 }
 
 const obstacles = [];
 
-const ObstaclePositionArrayValues = [0,125,-170];
+const ObstaclePositionArrayValues = [50, 175, 320];
 
 function randomObstacle(ObstaclePositionArrayValues) {
   return ObstaclePositionArrayValues[Math.floor(Math.random() * ObstaclePositionArrayValues.length)];
@@ -61,15 +61,15 @@ class Floor {
   }
   show(){
     noStroke(); 
-    fill(0,0,255);
+    fill(255, 0);
     rect(this.x, this.y, this.width, this.height);
 }
 }
 
 class Items {
   constructor(){
-      this.x = 350;  
-      this.y = random(-170,125);
+      this.x = 450;  
+      this.y = random(100, 300);
       this.speed = -12;
   }
     move(){
@@ -77,7 +77,7 @@ class Items {
     }
     show(){
       noStroke(); 
-      fill(89, 125, 219);
+      fill(255, 0);
       rect(this.x, this.y, 50, 50);
   }
 }
@@ -91,6 +91,7 @@ let playerSprite;
 let obstacleSprite;
 let itemSprite;
 let backgroundSprite;
+let bluescreenSprite;
 
 function preload(){
 errorSound = loadSound("Sound/Windows_XP_Error_Sound_Effect.mp3");
@@ -101,6 +102,7 @@ playerSprite = loadImage("Sprites/windows_logo.png");
 obstacleSprite = loadImage("Sprites/IE_logo.png");
 itemSprite = loadImage("Sprites/star_logo3.png");
 backgroundSprite = loadImage("Sprites/xp_logon2.png");
+bluescreenSprite = loadImage("Sprites/bluescreen.png");
 }
 
 function setup (){
@@ -122,18 +124,17 @@ function setup (){
 
     for (let i = 0; i < 2; i++) {
       obstacles[i] = new Obstacle();   
-      print(obstacles[i]);
-
     }
+    
     player = new Player();
-    floor = new Floor(0, 450);
+    floor = new Floor(0, 445);
     ceiling = new Floor(0, 30);
     items = new Items();
 
     //Keybinds
     const Action = {
       help()    {
-        (window.alert("F1 = Help screen \n\nF4 = Reset")) 
+        (window.alert("• Reach 50.000 points to win! \n\n• Collect stars to create an increasing bonus point streak! \n\n• Avoid Internet Explorer! \n\n\n\n----------------\nby github.com/Anon853 \n2021")) 
       },
       
       reset(){
@@ -155,11 +156,14 @@ function setup (){
       ['keydown', 'keyup'].forEach((evType) => {
       document.body.addEventListener(evType, keyHandler);
       });
+
+
+
       
 }
 
 function draw(){ 
-    background(backgroundSprite); //old colors 135, 206, 235
+    background(backgroundSprite);
 
     items.show();
     items.move();
@@ -169,8 +173,6 @@ function draw(){
     ceiling.show();
     image(playerSprite, player.x, player.y);
     image(itemSprite, items.x, items.y);
-    //image(backgroundSprite, 700, 450);
-    //image(background, 700, 450);
 
    //Movement & behavior
    if (keyIsDown(32) && player.y > ceiling.y +20)  {
@@ -209,14 +211,13 @@ bonusReset();
 
 const distanceCollisionCalc = (objectPosX, objectPosY) => {
   let d = dist(player.x, player.y, objectPosX, objectPosY);
-  text("Dist: " + Math.floor(d), 150, 50);
 
   if (d < 50) {
     score();
     difficulty();
     chimeSound.play();
-    items.x = 350;
-    items.y = random (-170, 125);
+    items.x = 700;
+    items.y = random (100, 300);
   }
 }
 
@@ -225,12 +226,14 @@ distanceCollisionCalc(items.x, items.y);
 const gameOver = () => {
   if (player.lives < 0){
     document.activeElement.blur(window.alert);
-    errorSound.play();
-    window.alert("Game Over \n\nHigh Score: " + points );
-    location.reload();
-    
+    bgmSound.stop();
+    //errorSound.play();
+    background(bluescreenSprite, width, height);
+    //window.alert("Game Over \n\nHigh Score: " + points );
+    //location.reload();
   }
 }
+
 gameOver();
 
     //Obstacles
@@ -242,8 +245,8 @@ gameOver();
     const d = dist(player.x, player.y, obstacles.x, obstacles.y);
 
     if (d < 50) {
-      obstacles.x = 400;
-      obstacles.y = random (-170, 125);
+      obstacles.x = 700;
+      obstacles.y = random (150, 350);
       player.lives = player.lives - 1;
       errorSound.play();
 
@@ -265,17 +268,13 @@ gameOver();
 
   });
     //Misc
-    
-    // rotateX(millis() / 1000);
-    // rotateY(millis() / 1000);
-    fill(0, 202, 153);
-    text("Points: " + points, 0, 40);
-    fill(0, 202, 153);
-    text("Y pos: " + Math.floor(player.y), 0, 60);
+
+    fill(255, 2552, 255);
+    text("Points: " + points, 540, 60);
     fill(255, 255, 255);
-    text("Lives: " + player.lives, 0, 80);
+    text("Lives: " + player.lives, 540, 80);
     fill(255, 255, 255);
-    text("Bonus: " + bonus + " x", 0, 100); 
+    text("Bonus: " + bonus + " x", 540, 100); 
     
 const volumeSetting = (slidervalue) => {
 
