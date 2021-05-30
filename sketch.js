@@ -5,11 +5,12 @@ let items;
 let ceiling;
 let points = 0;
 let bonus = 0;
+let canvas;
 
 class Player {
   constructor(){
-    this.x = -300;
-    this.y = 95; 
+    this.x = 0;
+    this.y = 0; 
     this.speedY = 10;
     this.speedX = 0;
     this.gravitation = 0.5; 
@@ -20,8 +21,8 @@ class Player {
     this.speedY = this.speedY * 0.5 + this.gravitation;
   }
   show(){
-    stroke(255); 
-    fill(255,0,0);
+    noStroke(); 
+    fill(89, 125, 219);
     rect(this.x, this.y, 50, 50,);
   }
 }
@@ -36,8 +37,8 @@ class Obstacle {
     this.x = this.x + this.speed;
   }
   show(){
-    stroke(255); 
-    fill(0,0,255);
+    noStroke(); 
+    fill(89, 125, 219);
     rect(this.x, this.y, 50, 50,);
   }
 }
@@ -74,29 +75,36 @@ class Items {
     move(){
       this.x = this.x + this.speed;
     }
-    show(color){
-      stroke(255); 
-      this.red = color;
-      fill(this.red,255,255);
+    show(){
+      noStroke(); 
+      fill(89, 125, 219);
       rect(this.x, this.y, 50, 50);
   }
 }
 
-
-//Sound
+//Sound & graphics
 let errorSound;
 let bgmSound;
 let chimeSound;
 let slider;
+let playerSprite;
+let obstacleSprite;
+let itemSprite;
+let backgroundSprite;
 
 function preload(){
 errorSound = loadSound("Sound/Windows_XP_Error_Sound_Effect.mp3");
 bgmSound = loadSound("Sound/Windows_XP_Installation_Music.mp3");
 chimeSound = loadSound("Sound/Windows_XP_Sound_Chimes.mp3");
+
+playerSprite = loadImage("Sprites/windows_logo.png");
+obstacleSprite = loadImage("Sprites/IE_logo.png");
+itemSprite = loadImage("Sprites/star_logo3.png");
+backgroundSprite = loadImage("Sprites/xp_logon2.png");
 }
 
 function setup (){
-    createCanvas (700, 450, WEBGL);
+    canvas = createCanvas (700, 450);
     textSize(25);
     let ExoBlack = loadFont('assets/Exo-Black.otf');
     textFont(ExoBlack);
@@ -112,15 +120,14 @@ function setup (){
 
     slider = createSlider(0, 1, 0.5, 0.01);
 
-    
     for (let i = 0; i < 2; i++) {
       obstacles[i] = new Obstacle();   
       print(obstacles[i]);
 
     }
     player = new Player();
-    floor = new Floor(-350, 230);
-    ceiling = new Floor(-350, -175);
+    floor = new Floor(0, 450);
+    ceiling = new Floor(0, 30);
     items = new Items();
 
     //Keybinds
@@ -148,18 +155,23 @@ function setup (){
       ['keydown', 'keyup'].forEach((evType) => {
       document.body.addEventListener(evType, keyHandler);
       });
+      
 }
 
 function draw(){ 
-    background(135, 206, 235);
+    background(backgroundSprite); //old colors 135, 206, 235
 
-    items.show(255);
+    items.show();
     items.move();
     floor.show();
     player.move();
     player.show();
     ceiling.show();
-  
+    image(playerSprite, player.x, player.y);
+    image(itemSprite, items.x, items.y);
+    //image(backgroundSprite, 700, 450);
+    //image(background, 700, 450);
+
    //Movement & behavior
    if (keyIsDown(32) && player.y > ceiling.y +20)  {
     player.speedY = -20;
@@ -197,7 +209,7 @@ bonusReset();
 
 const distanceCollisionCalc = (objectPosX, objectPosY) => {
   let d = dist(player.x, player.y, objectPosX, objectPosY);
-  text("Dist: " + Math.floor(d), -340, -160);
+  text("Dist: " + Math.floor(d), 150, 50);
 
   if (d < 50) {
     score();
@@ -225,6 +237,7 @@ gameOver();
     obstacles.forEach(obstacles => {
       obstacles.move();
       obstacles.show();
+      image(obstacleSprite, obstacles.x, obstacles.y);
 
     const d = dist(player.x, player.y, obstacles.x, obstacles.y);
 
@@ -256,13 +269,13 @@ gameOver();
     // rotateX(millis() / 1000);
     // rotateY(millis() / 1000);
     fill(0, 202, 153);
-    text("Points: " + points, -340, -200);
+    text("Points: " + points, 0, 40);
     fill(0, 202, 153);
-    text("Y pos: " + Math.floor(player.y), -340, -180);
+    text("Y pos: " + Math.floor(player.y), 0, 60);
     fill(255, 255, 255);
-    text("Lives: " + player.lives, -340, -140);
+    text("Lives: " + player.lives, 0, 80);
     fill(255, 255, 255);
-    text("Bonus: " + bonus + " x", -340, -120); 
+    text("Bonus: " + bonus + " x", 0, 100); 
     
 const volumeSetting = (slidervalue) => {
 
