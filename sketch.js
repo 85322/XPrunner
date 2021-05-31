@@ -94,15 +94,15 @@ let backgroundSprite;
 let bluescreenSprite;
 
 function preload(){
-errorSound = loadSound("Sound/Windows_XP_Error_Sound_Effect.mp3");
-bgmSound = loadSound("Sound/Windows_XP_Installation_Music.mp3");
-chimeSound = loadSound("Sound/Windows_XP_Sound_Chimes.mp3");
+errorSound = loadSound(`Sound/Windows_XP_Error_Sound_Effect.mp3`);
+bgmSound = loadSound(`Sound/Windows_XP_Installation_Music.mp3`);
+chimeSound = loadSound(`Sound/Windows_XP_Sound_Chimes.mp3`);
 
-playerSprite = loadImage("Sprites/windows_logo.png");
-obstacleSprite = loadImage("Sprites/IE_logo.png");
-itemSprite = loadImage("Sprites/star_logo3.png");
-backgroundSprite = loadImage("Sprites/xp_logon2.png");
-bluescreenSprite = loadImage("Sprites/bluescreen.png");
+playerSprite = loadImage(`Sprites/windows_logo.png`);
+obstacleSprite = loadImage(`Sprites/IE_logo.png`);
+itemSprite = loadImage(`Sprites/star_logo3.png`);
+backgroundSprite = loadImage(`Sprites/xp_logon2.png`);
+bluescreenSprite = loadImage(`Sprites/bluescreen.png`);
 }
 
 function setup (){
@@ -113,10 +113,10 @@ function setup (){
 
     bgmSound.loop();
 
-    document.getElementById("soundbtnoff").onclick=function(){
+    document.getElementById(`soundbtnoff`).onclick=function(){
       bgmSound.stop();
     } 
-    document.getElementById("soundbton").onclick=function(){
+    document.getElementById(`soundbton`).onclick=function(){
       bgmSound.loop();
     } 
 
@@ -134,7 +134,7 @@ function setup (){
     //Keybinds
     const Action = {
       help()    {
-        (window.alert("• Reach 50.000 points to win! \n\n• Collect stars to create an increasing bonus point streak! \n\n• Avoid Internet Explorer! \n\n\n\n----------------\nby github.com/Anon853 \n2021")) 
+        (window.alert(`• Reach 50.000 points to win! \n\n• Collect stars to create an increasing bonus point streak! \n\n• Avoid Internet Explorer! \n\n\n\n----------------\nby github.com/Anon853 \n2021`)) 
       },
       
       reset(){
@@ -156,10 +156,6 @@ function setup (){
       ['keydown', 'keyup'].forEach((evType) => {
       document.body.addEventListener(evType, keyHandler);
       });
-
-
-
-      
 }
 
 function draw(){ 
@@ -223,18 +219,7 @@ const distanceCollisionCalc = (objectPosX, objectPosY) => {
 
 distanceCollisionCalc(items.x, items.y);
 
-const gameOver = () => {
-  if (player.lives < 0){
-    document.activeElement.blur(window.alert);
-    bgmSound.stop();
-    //errorSound.play();
-    background(bluescreenSprite, width, height);
-    //window.alert("Game Over \n\nHigh Score: " + points );
-    //location.reload();
-  }
-}
 
-gameOver();
 
     //Obstacles
     obstacles.forEach(obstacles => {
@@ -267,15 +252,32 @@ gameOver();
     }
 
   });
-    //Misc
 
+  const gameOver = () => {
+      document.activeElement.blur(window.alert);
+      bgmSound.stop();
+      background(bluescreenSprite, width, height);
+      obstacles.length = 0;
+      fill(255, 255);
+      text(`High Score: ${points}`, (width/2 -100), 60);
+      //location.reload();
+  }
+  
+const uiAndGameOver = () => {
+if (player.lives > -1) {
     fill(255, 2552, 255);
-    text("Points: " + points, 540, 60);
+    text(`Points: ${points}`, 540, 60);
     fill(255, 255, 255);
-    text("Lives: " + player.lives, 540, 80);
+    text(`Lives: ${player.lives}`, 540, 80);
     fill(255, 255, 255);
-    text("Bonus: " + bonus + " x", 540, 100); 
-    
+    text(`Bonus: ${bonus} x`, 540, 100); 
+} else {
+  gameOver();
+} 
+}
+
+uiAndGameOver();
+
 const volumeSetting = (slidervalue) => {
 
   const v = slidervalue;
