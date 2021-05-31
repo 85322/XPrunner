@@ -14,7 +14,7 @@ class Player {
     this.speedY = 10;
     this.speedX = 0;
     this.gravitation = 0.5; 
-    this.lives = 0;
+    this.lives = 5;
   }    
   move(){
     this.y = this.y + this.speedY;
@@ -82,29 +82,6 @@ class Items {
   }
 }
 
-//Sound & graphics
-let errorSound;
-let bgmSound;
-let chimeSound;
-let slider;
-let playerSprite;
-let obstacleSprite;
-let itemSprite;
-let backgroundSprite;
-let bluescreenSprite;
-
-function preload(){
-errorSound = loadSound(`Sound/Windows_XP_Error_Sound_Effect.mp3`);
-bgmSound = loadSound(`Sound/Windows_XP_Installation_Music.mp3`);
-chimeSound = loadSound(`Sound/Windows_XP_Sound_Chimes.mp3`);
-
-playerSprite = loadImage(`Sprites/windows_logo.png`);
-obstacleSprite = loadImage(`Sprites/IE_logo.png`);
-itemSprite = loadImage(`Sprites/star_logo3.png`);
-backgroundSprite = loadImage(`Sprites/xp_logon2.png`);
-bluescreenSprite = loadImage(`Sprites/bluescreen.png`);
-}
-
 function setup (){
     canvas = createCanvas (700, 450);
     textSize(25);
@@ -134,7 +111,7 @@ function setup (){
     //Keybinds
     const Action = {
       help()    {
-        (window.alert(`• Reach 50.000 points to win! \n\n• Collect stars to create an increasing bonus point streak! \n\n• Avoid Internet Explorer! \n\n\n\n----------------\nby github.com/Anon853 \n2021`)) 
+        (window.alert(`• Reach 10.000 points to win! \n\n• Collect stars to create an increasing bonus point streak! \n\n• Avoid Internet Explorer! \n\n\n\n----------------\nby github.com/Anon853 \n2021`)) 
       },
       
       reset(){
@@ -144,7 +121,7 @@ function setup (){
       
       const keyAction = {
       F1: { keydown: Action.help},
-      F4: { keydown: Action.reset}
+      r: { keydown: Action.reset}
       };
       
       const keyHandler = (ev) => {
@@ -219,48 +196,43 @@ const distanceCollisionCalc = (objectPosX, objectPosY) => {
 
 distanceCollisionCalc(items.x, items.y);
 
+//Obstacles
+obstacles.forEach(obstacles => {
+  obstacles.move();
+  obstacles.show();
+  image(obstacleSprite, obstacles.x, obstacles.y);
 
 
-    //Obstacles
-    obstacles.forEach(obstacles => {
-      obstacles.move();
-      obstacles.show();
-      image(obstacleSprite, obstacles.x, obstacles.y);
+const d = dist(player.x, player.y, obstacles.x, obstacles.y);
 
-    const d = dist(player.x, player.y, obstacles.x, obstacles.y);
-
-    if (d < 50) {
-      obstacles.x = 700;
-      obstacles.y = random (150, 350);
-      player.lives = player.lives - 1;
-      errorSound.play();
-
-      //death screen mit optionen hier ?? ();
-    }  
+if (d < 50) {
+  obstacles.x = 700;
+  obstacles.y = random (150, 350);
+  player.lives = player.lives - 1;
+  errorSound.play();
+}  
       
-    if (obstacles.x < width * -1) {
-      obstacles.speed = -10;
-      obstacles.x = width;
-      obstacles.y = randomObstacle(ObstaclePositionArrayValues);    
-    }
+if (obstacles.x < width * -1) {
+  obstacles.speed = -10;
+  obstacles.x = width;
+  obstacles.y = randomObstacle(ObstaclePositionArrayValues);    
+}
 
     //Items
-    if (items.x < width * -1) {
-      items.speed =  -12;
-      items.x = width;
-      items.y = randomObstacle(ObstaclePositionArrayValues);    
-    }
+if (items.x < width * -1) {
+  items.speed =  -12;
+  items.x = width;
+  items.y = randomObstacle(ObstaclePositionArrayValues);    
+}
+});
 
-  });
-
-  const gameOver = () => {
-      document.activeElement.blur(window.alert);
-      bgmSound.stop();
-      background(bluescreenSprite, width, height);
-      obstacles.length = 0;
-      fill(255, 255);
-      text(`High Score: ${points}`, (width/2 -100), 60);
-      //location.reload();
+const gameOver = () => {
+  document.activeElement.blur(window.alert);
+  bgmSound.stop();
+  background(bluescreenSprite, width, height);
+  obstacles.length = 0;
+  fill(255, 255);
+  text(`High Score: ${points}`, (width/2 -100), 60);
   }
   
 const uiAndGameOver = () => {
@@ -278,6 +250,20 @@ if (player.lives > -1) {
 
 uiAndGameOver();
 
+const win = () => {
+  if (points >= 10000) {
+    winSound.play();
+    bgmSound.stop();
+    obstacles.length = 0;
+    background(blissSprite, width, height);
+    fill(0, 255);
+    text(`High Score: ${points}\nYou win!`, (width/2 -100), height/2);
+    noLoop();
+}
+}
+
+win();
+
 const volumeSetting = (slidervalue) => {
 
   const v = slidervalue;
@@ -286,6 +272,15 @@ const volumeSetting = (slidervalue) => {
     chimeSound.setVolume(v);
   }
   volumeSetting(slider.value());
+
+const obstacleDifficulty = (pointValue, obstacleArrayLength) => {
+  if (points >= pointValue && obstacles.length < obstacleArrayLength) {
+  obstacles.push(new Obstacle());
 }
-
-
+}
+obstacleDifficulty(1000, 3);
+obstacleDifficulty(3000, 4);
+obstacleDifficulty(6000, 5);
+obstacleDifficulty(8000, 9);
+obstacleDifficulty(9000, 10 );
+}
