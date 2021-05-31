@@ -90,15 +90,6 @@ function setup (){
 
     bgmSound.loop();
 
-    document.getElementById(`soundbtnoff`).onclick=function(){
-      bgmSound.stop();
-    } 
-    document.getElementById(`soundbton`).onclick=function(){
-      bgmSound.loop();
-    } 
-
-    slider = createSlider(0, 1, 0.5, 0.01);
-
     for (let i = 0; i < 2; i++) {
       obstacles[i] = new Obstacle();   
     }
@@ -107,32 +98,6 @@ function setup (){
     floor = new Floor(0, 445);
     ceiling = new Floor(0, 30);
     items = new Items();
-
-    //Keybinds
-    const Action = {
-      help()    {
-        (window.alert(`• Reach 10.000 points to win! \n\n• Collect stars to create an increasing bonus point streak! \n\n• Avoid Internet Explorer! \n\n\n\n----------------\nby github.com/Anon853 \n2021`)) 
-      },
-      
-      reset(){
-        location.reload();
-      }
-      };
-      
-      const keyAction = {
-      F1: { keydown: Action.help},
-      r: { keydown: Action.reset}
-      };
-      
-      const keyHandler = (ev) => {
-      if (ev.repeat) return;  
-      if (!(ev.key in keyAction) || !(ev.type in keyAction[ev.key])) return;
-      keyAction[ev.key][ev.type]();
-      };
-      
-      ['keydown', 'keyup'].forEach((evType) => {
-      document.body.addEventListener(evType, keyHandler);
-      });
 }
 
 function draw(){ 
@@ -263,15 +228,6 @@ const win = () => {
 }
 
 win();
-
-const volumeSetting = (slidervalue) => {
-
-  const v = slidervalue;
-    bgmSound.setVolume(v);
-    errorSound.setVolume(v);
-    chimeSound.setVolume(v);
-  }
-  volumeSetting(slider.value());
 
 const obstacleDifficulty = (pointValue, obstacleArrayLength) => {
   if (points >= pointValue && obstacles.length < obstacleArrayLength) {

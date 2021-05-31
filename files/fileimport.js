@@ -10,7 +10,6 @@ let bluescreenSprite;
 let blissSprite;
 let winSound;
 
-
 function preload(){
     errorSound = loadSound(`Sound/Windows_XP_Error_Sound_Effect.mp3`);
     bgmSound = loadSound(`Sound/Windows_XP_Installation_Music.mp3`);
