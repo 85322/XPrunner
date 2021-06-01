@@ -1,4 +1,7 @@
+//import { volumeSetting } from './files/gui.js';
 'use strict';
+
+
 
 let player;
 let items;
@@ -98,6 +101,9 @@ function setup (){
     floor = new Floor(0, 445);
     ceiling = new Floor(0, 30);
     items = new Items();
+
+    slider = createSlider(0, 1, 0.5, 0.01);
+   
 }
 
 function draw(){ 
@@ -198,6 +204,7 @@ const gameOver = () => {
   obstacles.length = 0;
   fill(255, 255);
   text(`High Score: ${points}`, (width/2 -100), 60);
+  noLoop();
   }
   
 const uiAndGameOver = () => {
@@ -239,4 +246,14 @@ obstacleDifficulty(3000, 4);
 obstacleDifficulty(6000, 5);
 obstacleDifficulty(8000, 9);
 obstacleDifficulty(9000, 10 );
+
+const volumeSetting = (slidervalue) => {
+
+  const v = slidervalue;
+    bgmSound.setVolume(v);
+    errorSound.setVolume(v);
+    chimeSound.setVolume(v);
+}
+
+volumeSetting(slider.value());
 }
