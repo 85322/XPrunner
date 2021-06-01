@@ -9,6 +9,8 @@ let backgroundSprite;
 let bluescreenSprite;
 let blissSprite;
 let winSound;
+let speakeronSprite;
+let speakeroffSprite;
 
 function preload(){
     errorSound = loadSound(`Sound/Windows_XP_Error_Sound_Effect.mp3`);
@@ -22,4 +24,6 @@ function preload(){
     backgroundSprite = loadImage(`Sprites/xp_logon2.png`);
     bluescreenSprite = loadImage(`Sprites/bluescreen.png`);
     blissSprite = loadImage(`Sprites/bliss.png`);
+    speakeronSprite = loadImage(`Sprites/speaker_on2.png`);
+    speakeroffSprite = loadImage(`Sprites/speaker_off.png`);
     }

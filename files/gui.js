@@ -21,10 +21,24 @@ const keyHandler = (ev) => {
 document.body.addEventListener(evType, keyHandler);
 });
 
-//Sound buttons
-document.getElementById(`soundbtnoff`).onclick=function(){
-    bgmSound.stop();
-  } 
-document.getElementById(`soundbton`).onclick=function(){
-    bgmSound.loop();
-  } 
+//Sound
+
+speaker = new Speaker();
+
+  const speakerbutton = () => {
+    const d = dist(mouseX, mouseY, speaker.x, speaker.y);
+      if (d < 35 && !speaker.state) {
+        bgmSound.setVolume(1);
+        speaker.state = true;
+      } else if (d < 35 && speaker.state){
+        bgmSound.setVolume(0);
+        speaker.state = false;
+      }
+    }
+  
+  function mouseClicked(){ 
+    speakerbutton();
+  }
+  
+  mouseClicked();
+  

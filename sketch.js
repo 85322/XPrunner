@@ -1,7 +1,4 @@
-//import { volumeSetting } from './files/gui.js';
 'use strict';
-
-
 
 let player;
 let items;
@@ -9,6 +6,8 @@ let ceiling;
 let points = 0;
 let bonus = 0;
 let canvas;
+let speaker;
+
 
 class Player {
   constructor(){
@@ -85,6 +84,19 @@ class Items {
   }
 }
 
+class Speaker {
+  constructor(){
+    this.x = 490;
+    this.y = 3;
+    this.state = true;
+  }
+  show(){
+    noStroke();
+    fill(255, 0);
+    rect(this.x, this.y, 30, 30)
+  }
+}
+
 function setup (){
     canvas = createCanvas (700, 450);
     textSize(25);
@@ -101,9 +113,13 @@ function setup (){
     floor = new Floor(0, 445);
     ceiling = new Floor(0, 30);
     items = new Items();
+    
 
     slider = createSlider(0, 1, 0.5, 0.01);
-   
+    slider.position(speaker.x + 45, speaker.y + 200);
+    //slider.style();
+    //slider pos ist nicht an canvas gerichtet
+    //per click an mouseX mouseY erscheinen lassen?
 }
 
 function draw(){ 
@@ -115,9 +131,10 @@ function draw(){
     player.move();
     player.show();
     ceiling.show();
+    speaker.show();
     image(playerSprite, player.x, player.y);
     image(itemSprite, items.x, items.y);
-
+    
    //Movement & behavior
    if (keyIsDown(32) && player.y > ceiling.y +20)  {
     player.speedY = -20;
@@ -198,12 +215,16 @@ if (items.x < width * -1) {
 });
 
 const gameOver = () => {
-  document.activeElement.blur(window.alert);
+  //document.activeElement.blur(window.alert);
   bgmSound.stop();
-  background(bluescreenSprite, width, height);
   obstacles.length = 0;
+  speaker = 0;
+  slider = 0;
   fill(255, 255);
+  background(bluescreenSprite, width, height);
   text(`High Score: ${points}`, (width/2 -100), 60);
+  
+  
   noLoop();
   }
   
@@ -248,12 +269,24 @@ obstacleDifficulty(8000, 9);
 obstacleDifficulty(9000, 10 );
 
 const volumeSetting = (slidervalue) => {
-
   const v = slidervalue;
+  if (speaker.state) {
     bgmSound.setVolume(v);
+  } 
     errorSound.setVolume(v);
     chimeSound.setVolume(v);
 }
 
 volumeSetting(slider.value());
+
+const speakerIconCheck = () => {
+if (speaker.state){
+  image(speakeronSprite, speaker.x, speaker.y);
+} else {
+  image(speakeroffSprite, speaker.x, speaker.y);
+}
+}
+
+speakerIconCheck();
+
 }
