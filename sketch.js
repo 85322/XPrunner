@@ -25,11 +25,6 @@ function setup (){
     floor = new Floor(0, 445);
     ceiling = new Floor(0, 30);
     items = new Items();
-    sliderVolume = new Slider();
-
-    slider = createSlider(0, 1, 0.5, 0.01);
-    slider.style('width', '80px');
-    slider.position(0, 0); //45x 95y
 }
 
 function draw(){ 
@@ -44,8 +39,10 @@ function draw(){
     speaker.show();
     image(playerSprite, player.x, player.y);
     image(itemSprite, items.x, items.y);
-    sliderVolume.show();
-    image(volumeSprite, sliderVolume.x, sliderVolume.y);
+    volumeButton.show();
+    image(volumeSprite2, volumeButton.x, volumeButton.y);
+    volumeButton2.show();
+    image(volumeSprite, volumeButton2.x, volumeButton2.y);
     
 const movement = () => {
   if (keyIsDown(32) && player.y > ceiling.y +20)  {
@@ -132,7 +129,6 @@ const gameOver = () => {
   bgmSound.stop();
   obstacles.length = 0;
   speaker = 0;
-  slider = 0; // ???
   fill(255, 255);
   background(bluescreenSprite, width, height);
   text(`High Score: ${points}`, (width/2 -100), 60);
@@ -146,6 +142,7 @@ if (player.lives > -1) {
     text(`Lives: ${player.lives}`, 540, 80);
     text(`Bonus: ${bonus} x`, 540, 100); 
     text(`F1 = Help  R = Reset  Space = Jump`, 10, 25);
+    text(` ${Math.floor(volumeButtonValue*100)}%`, 630, 25);
 } else {
   gameOver();
 } 
@@ -189,8 +186,8 @@ if (speaker.state){
 
 speakerIconCheck();
 
-const volumeSetting = (slidervalue) => {
-  const v = slidervalue;
+const volumeSetting = (volumeButtonValue) => {
+  const v = volumeButtonValue;
   if (speaker.state) {
     bgmSound.setVolume(v);
   } 
@@ -198,6 +195,6 @@ const volumeSetting = (slidervalue) => {
     chimeSound.setVolume(v);
 }
 
-volumeSetting(slider.value());
-
+volumeSetting(volumeButtonValue);
 }
+

@@ -36,23 +36,52 @@ document.body.addEventListener(evType, keyHandler);
 });
 
 //Sound
-speaker = new Speaker();
+speaker = new Speaker(490, 3);
 
   const speakerButton = () => {
     const d = dist(mouseX, mouseY, speaker.x, speaker.y);
       if (d < 35 && !speaker.state) {
         bgmSound.setVolume(1);
         speaker.state = true;
-      } else if (d < 35 && speaker.state){
+      } else if (d < 30 && speaker.state){
         bgmSound.setVolume(0);
         speaker.state = false;
       }
     }
  
-  function mouseClicked(){ 
-    speakerButton();
+volumeButton = new VolumeButton(550, 3);    
+
+let volumeButtonValue = 1;
+
+const volumeButtonMinusFunc = () => {
+    const d = dist(mouseX, mouseY, volumeButton.x, volumeButton.y);
+      if (d < 30 && volumeButtonValue > 0.1 ) {  //0 in js float logik
+        volumeButtonValue = volumeButtonValue - 0.1;
+        bgmSound.setVolume(volumeButtonValue);
+        console.log(`VolumeButtonValue is now: ${volumeButtonValue}`);
+      }
+    }
+
+volumeButton2 = new VolumeButton(610, 3);
+
+const volumeButtonPLusFunc = () => {
+  const d = dist(mouseX, mouseY, volumeButton2.x, volumeButton2.y);
+    if (d < 30 && volumeButtonValue <= 0.9 ) {
+      volumeButtonValue = volumeButtonValue + 0.1;
+      bgmSound.setVolume(volumeButtonValue);
+      console.log(`VolumeButtonValue is now: ${volumeButtonValue}`);
+    }
   }
-  
-  mouseClicked();
+
+function mouseClicked(){ 
+  speakerButton();
+  volumeButtonPLusFunc();
+  volumeButtonMinusFunc();
+}
+
+mouseClicked();
 
 
+
+
+    

@@ -1,4 +1,3 @@
-
 let player;
 let items;
 let ceiling;
@@ -6,10 +5,8 @@ let points = 0;
 let bonus = 0;
 let canvas;
 let speaker;
-let sliderVolume;
-
-
-
+let volumeButton;
+let volumeButton2;
 
 class Player {
     constructor(){
@@ -90,7 +87,6 @@ class Player {
     constructor(){
       this.x = 490;
       this.y = 3;
-
       this.state = true;
     }
     show(){
@@ -100,10 +96,11 @@ class Player {
     }
   }
   
-  class Slider {
-    constructor(){
-      this.x = 520;
-      this.y = 3;
+  class VolumeButton {
+    constructor(x, y){
+      this.x = x;  
+      this.y = y;   
+      this.state = true;
     }
     show(){
       noStroke();
