@@ -1,7 +1,7 @@
 //Hoykeys
 const Action = {
   help(){(
-    window.alert(`• Reach 10.000 points to win \n\n• Collect stars for an increasing bonus point streak \n\n• Avoid Internet Explorer \n\n\n\n----------------\nby github.com/Anon853 \n2021`))
+    window.alert(`• Reach 10.000 points to win \n\n• Collect stars for an increasing bonus point streak \n\n• Avoid Internet Explorer \n\n•Click speaker to mute music \n\n\n\n----------------\nby github.com/Anon853 \n2021`))
   },
   reset(){
     location.reload();
