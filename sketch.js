@@ -98,7 +98,16 @@ class Speaker {
 }
 
 function setup (){
-    canvas = createCanvas (700, 450);
+  canvas = createCanvas (700, 450); 
+
+  const centerCanvas = () => {
+    const x = (windowWidth - width) / 2;
+    const y = (windowHeight - height) / 2;
+    canvas.position(x, y);
+    }
+
+    centerCanvas();
+
     textSize(25);
     let ExoBlack = loadFont('assets/Exo-Black.otf');
     textFont(ExoBlack);
@@ -113,13 +122,9 @@ function setup (){
     floor = new Floor(0, 445);
     ceiling = new Floor(0, 30);
     items = new Items();
-    
 
     slider = createSlider(0, 1, 0.5, 0.01);
-    slider.position(speaker.x + 45, speaker.y + 200);
-    //slider.style();
-    //slider pos ist nicht an canvas gerichtet
-    //per click an mouseX mouseY erscheinen lassen?
+    slider.position(canvas.width*1.51, canvas.height/2.25); //45x 95y
 }
 
 function draw(){ 
@@ -135,8 +140,8 @@ function draw(){
     image(playerSprite, player.x, player.y);
     image(itemSprite, items.x, items.y);
     
-   //Movement & behavior
-   if (keyIsDown(32) && player.y > ceiling.y +20)  {
+const movement = () => {
+  if (keyIsDown(32) && player.y > ceiling.y +20)  {
     player.speedY = -20;
     floor.ground = false; 
   } else {
@@ -152,6 +157,9 @@ function draw(){
   } else {
     player.gravitation = 5;
   }
+}
+
+movement();
 
 const score = () => {
   points = points + 100 + (100 * bonus) ;
@@ -184,7 +192,7 @@ const distanceCollisionCalc = (objectPosX, objectPosY) => {
 
 distanceCollisionCalc(items.x, items.y);
 
-//Obstacles
+//Object movement and creation
 obstacles.forEach(obstacles => {
   obstacles.move();
   obstacles.show();
@@ -206,25 +214,21 @@ if (obstacles.x < width * -1) {
   obstacles.y = randomObstacle(ObstaclePositionArrayValues);    
 }
 
-    //Items
 if (items.x < width * -1) {
   items.speed =  -12;
   items.x = width;
   items.y = randomObstacle(ObstaclePositionArrayValues);    
 }
-});
+})
 
 const gameOver = () => {
-  //document.activeElement.blur(window.alert);
   bgmSound.stop();
   obstacles.length = 0;
   speaker = 0;
-  slider = 0;
+  slider = 0; // ???
   fill(255, 255);
   background(bluescreenSprite, width, height);
   text(`High Score: ${points}`, (width/2 -100), 60);
-  
-  
   noLoop();
   }
   
@@ -232,10 +236,9 @@ const uiAndGameOver = () => {
 if (player.lives > -1) {
     fill(255, 2552, 255);
     text(`Points: ${points}`, 540, 60);
-    fill(255, 255, 255);
     text(`Lives: ${player.lives}`, 540, 80);
-    fill(255, 255, 255);
     text(`Bonus: ${bonus} x`, 540, 100); 
+    text(`F1 = Help  R = Reset  Space = Jump`, 10, 25);
 } else {
   gameOver();
 } 
@@ -248,6 +251,7 @@ const win = () => {
     winSound.play();
     bgmSound.stop();
     obstacles.length = 0;
+    speaker = 0;
     background(blissSprite, width, height);
     fill(0, 255);
     text(`High Score: ${points}\nYou win!`, (width/2 -100), height/2);
@@ -268,6 +272,16 @@ obstacleDifficulty(6000, 5);
 obstacleDifficulty(8000, 9);
 obstacleDifficulty(9000, 10 );
 
+const speakerIconCheck = () => {
+if (speaker.state){
+  image(speakeronSprite, speaker.x, speaker.y);
+} else {
+  image(speakeroffSprite, speaker.x, speaker.y);
+}
+}
+
+speakerIconCheck();
+
 const volumeSetting = (slidervalue) => {
   const v = slidervalue;
   if (speaker.state) {
@@ -278,15 +292,5 @@ const volumeSetting = (slidervalue) => {
 }
 
 volumeSetting(slider.value());
-
-const speakerIconCheck = () => {
-if (speaker.state){
-  image(speakeronSprite, speaker.x, speaker.y);
-} else {
-  image(speakeroffSprite, speaker.x, speaker.y);
-}
-}
-
-speakerIconCheck();
 
 }

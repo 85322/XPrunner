@@ -3,6 +3,10 @@ html, body {
   padding: 5px;
   align-items: center;
   text-align: left;
+  background-image: url("../Sprites/wallpaper1.jpg");
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+
 }
 canvas {
   display: block;
@@ -48,3 +52,4 @@ canvas {
   font-variant: small-caps;
   text-transform: none;
   }
+
