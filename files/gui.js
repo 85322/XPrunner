@@ -54,11 +54,10 @@ volumeButton = new VolumeButton(550, 3);
 let volumeButtonValue = 1;
 
 const volumeButtonMinusFunc = () => {
-    const d = dist(mouseX, mouseY, volumeButton.x, volumeButton.y);
-      if (d < 30 && volumeButtonValue > 0.1 ) {  //0 in js float logik
+  const d = dist(mouseX, mouseY, volumeButton.x, volumeButton.y);
+      if (d < 35 && volumeButtonValue > 0.1 ) {
         volumeButtonValue = volumeButtonValue - 0.1;
-        bgmSound.setVolume(volumeButtonValue);
-        console.log(`VolumeButtonValue is now: ${volumeButtonValue}`);
+        //bgmSound.setVolume(volumeButtonValue);
       }
     }
 
@@ -66,10 +65,9 @@ volumeButton2 = new VolumeButton(610, 3);
 
 const volumeButtonPLusFunc = () => {
   const d = dist(mouseX, mouseY, volumeButton2.x, volumeButton2.y);
-    if (d < 30 && volumeButtonValue <= 0.9 ) {
+    if (d < 35 && volumeButtonValue <= 0.9 ) {
       volumeButtonValue = volumeButtonValue + 0.1;
-      bgmSound.setVolume(volumeButtonValue);
-      console.log(`VolumeButtonValue is now: ${volumeButtonValue}`);
+      //bgmSound.setVolume(volumeButtonValue);
     }
   }
 
