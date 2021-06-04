@@ -84,9 +84,9 @@ class Player {
   }
   
   class Speaker {
-    constructor(){
-      this.x = 490;
-      this.y = 3;
+    constructor(x, y){
+      this.x = x;  
+      this.y = y;   
       this.state = true;
     }
     show(){

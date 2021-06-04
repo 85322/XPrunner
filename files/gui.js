@@ -57,7 +57,6 @@ const volumeButtonMinusFunc = () => {
   const d = dist(mouseX, mouseY, volumeButton.x, volumeButton.y);
       if (d < 35 && volumeButtonValue > 0.1 ) {
         volumeButtonValue = volumeButtonValue - 0.1;
-        //bgmSound.setVolume(volumeButtonValue);
       }
     }
 
@@ -67,7 +66,6 @@ const volumeButtonPLusFunc = () => {
   const d = dist(mouseX, mouseY, volumeButton2.x, volumeButton2.y);
     if (d < 35 && volumeButtonValue <= 0.9 ) {
       volumeButtonValue = volumeButtonValue + 0.1;
-      //bgmSound.setVolume(volumeButtonValue);
     }
   }
 
@@ -79,7 +77,3 @@ function mouseClicked(){
 
 mouseClicked();
 
-
-
-
-    

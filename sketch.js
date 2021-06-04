@@ -15,8 +15,6 @@ function setup (){
     let ExoBlack = loadFont('assets/Exo-Black.otf');
     textFont(ExoBlack);
 
-    bgmSound.loop();
-
     for (let i = 0; i < 2; i++) {
       obstacles[i] = new Obstacle();   
     }
@@ -25,7 +23,25 @@ function setup (){
     floor = new Floor(0, 445);
     ceiling = new Floor(0, 30);
     items = new Items();
-}
+
+    startUpSound.play();
+
+   
+     //muss in draw oder so
+
+    //   const bgmMusicChecker = (startUpisPlaying) => {
+        
+    //     if (!startUpisPlaying){
+    //       bgmSound.play();
+    //   }
+    // }
+
+    // bgmMusicChecker();
+  
+
+
+
+    }
 
 function draw(){ 
     background(backgroundSprite);
@@ -82,6 +98,7 @@ const bonusReset = () => {
 
 bonusReset(); 
 
+//Object movement, collision and creation
 const distanceCollisionCalc = (objectPosX, objectPosY) => {
   let d = dist(player.x, player.y, objectPosX, objectPosY);
 
@@ -96,7 +113,6 @@ const distanceCollisionCalc = (objectPosX, objectPosY) => {
 
 distanceCollisionCalc(items.x, items.y);
 
-//Object movement and creation
 obstacles.forEach(obstacles => {
   obstacles.move();
   obstacles.show();
@@ -124,9 +140,9 @@ if (items.x < width * -1) {
   items.y = randomObstacle(ObstaclePositionArrayValues);    
 }
 })
-
+//Application states
 const gameOver = () => {
-  bgmSound.stop();
+  bgmSound.setVolume(0);
   obstacles.length = 0;
   speaker = 0;
   fill(255, 255);
@@ -153,9 +169,9 @@ uiAndGameOver();
 const win = () => {
   if (points >= 10000) {
     winSound.play();
-    bgmSound.stop();
+    bgmSound.setVolume(0);
     obstacles.length = 0;
-    speaker = 0;
+    speaker = 0;  
     background(blissSprite, width, height);
     fill(0, 255);
     text(`High Score: ${points}\nYou win!`, (width/2 -100), height/2);
@@ -176,6 +192,7 @@ obstacleDifficulty(6000, 5);
 obstacleDifficulty(8000, 9);
 obstacleDifficulty(9000, 10 );
 
+//Sound
 const speakerIconCheck = () => {
 if (speaker.state){
   image(speakeronSprite, speaker.x, speaker.y);
@@ -196,5 +213,19 @@ const volumeSetting = (volumeButtonValue) => {
 }
 
 volumeSetting(volumeButtonValue);
+
+const bgmTracker = () => {
+  const startUpisPlaying = startUpSound.isPlaying();
+  const bgmIsPlaying = bgmSound.isPlaying();
+    if (!startUpisPlaying && !bgmIsPlaying) {
+      bgmSound.loop();
+    } else if (startUpisPlaying){
+      bgmSound.stop();
+    }
+  }
+
+bgmTracker();
+
+
 }
 
