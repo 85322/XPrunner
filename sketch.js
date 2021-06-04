@@ -25,23 +25,7 @@ function setup (){
     items = new Items();
 
     startUpSound.play();
-
-   
-     //muss in draw oder so
-
-    //   const bgmMusicChecker = (startUpisPlaying) => {
-        
-    //     if (!startUpisPlaying){
-    //       bgmSound.play();
-    //   }
-    // }
-
-    // bgmMusicChecker();
-  
-
-
-
-    }
+}
 
 function draw(){ 
     background(backgroundSprite);
@@ -118,7 +102,6 @@ obstacles.forEach(obstacles => {
   obstacles.show();
   image(obstacleSprite, obstacles.x, obstacles.y);
 
-
 const d = dist(player.x, player.y, obstacles.x, obstacles.y);
 
 if (d < 50) {
@@ -140,6 +123,7 @@ if (items.x < width * -1) {
   items.y = randomObstacle(ObstaclePositionArrayValues);    
 }
 })
+
 //Application states
 const gameOver = () => {
   bgmSound.setVolume(0);
@@ -149,25 +133,9 @@ const gameOver = () => {
   background(bluescreenSprite, width, height);
   text(`High Score: ${points}`, (width/2 -100), 60);
   noLoop();
-  }
-  
-const uiAndGameOver = () => {
-if (player.lives > -1) {
-    fill(255, 2552, 255);
-    text(`Points: ${points}`, 540, 60);
-    text(`Lives: ${player.lives}`, 540, 80);
-    text(`Bonus: ${bonus} x`, 540, 100); 
-    text(`F1 = Help  R = Reset  Space = Jump`, 10, 25);
-    text(` ${Math.floor(volumeButtonValue*100)}%`, 630, 25);
-} else {
-  gameOver();
-} 
 }
 
-uiAndGameOver();
-
 const win = () => {
-  if (points >= 10000) {
     winSound.play();
     bgmSound.setVolume(0);
     obstacles.length = 0;
@@ -177,13 +145,33 @@ const win = () => {
     text(`High Score: ${points}\nYou win!`, (width/2 -100), height/2);
     noLoop();
 }
+
+const gameStateCheck = (requiredWinPointsValue) => {
+  if (player.lives <= -1) {
+    gameOver();
+  } if (points >= requiredWinPointsValue) {
+    win();
+  }
 }
 
-win();
+gameStateCheck(requiredWinPointsValue);
 
-const obstacleDifficulty = (pointValue, obstacleArrayLength) => {
-  if (points >= pointValue && obstacles.length < obstacleArrayLength) {
-  obstacles.push(new Obstacle());
+const uiDisplay = () => {
+  if (player.lives > -1 && points < requiredWinPointsValue){
+  fill(255, 255, 255);
+  text(`Points: ${points}`, 540, 60);
+  text(`Lives: ${player.lives}`, 540, 80);
+  text(`Bonus: ${bonus} x`, 540, 100); 
+  text(`F1 = Help  R = Reset  Space = Jump`, 10, 25);
+  text(` ${Math.floor(volumeButtonValue*100)}%`, 630, 25);
+}
+}
+
+uiDisplay();
+
+const obstacleDifficulty = (pointThresholdDifficulty, obstacleArrayLength) => {
+  if (points >= pointThresholdDifficulty && obstacles.length < obstacleArrayLength) {
+  obstacles.push(new Obstacle()); //punkte und index check um anzahl neuer objekte zu kontrollieren in draw()
 }
 }
 obstacleDifficulty(1000, 3);
@@ -225,7 +213,5 @@ const bgmTracker = () => {
   }
 
 bgmTracker();
-
-
 }
 

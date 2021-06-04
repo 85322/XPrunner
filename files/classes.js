@@ -2,11 +2,13 @@ let player;
 let items;
 let ceiling;
 let points = 0;
+let requiredWinPointsValue = 500;
 let bonus = 0;
 let canvas;
 let speaker;
 let volumeButton;
 let volumeButton2;
+
 
 class Player {
     constructor(){
