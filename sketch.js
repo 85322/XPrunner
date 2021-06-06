@@ -1,3 +1,5 @@
+let colorJSON = null;
+
 'use strict';
 
 function setup (){
@@ -25,6 +27,14 @@ function setup (){
     items = new Items();
 
     startUpSound.play();
+
+
+
+
+
+
+
+
 }
 
 function draw(){ 
@@ -70,7 +80,7 @@ const score = () => {
   bonus = bonus + 1;
 }
 
-const difficulty = () => {
+const itemSpeedIncrease = () => {
   items.speed = items.speed - 1.5;
 }
 
@@ -88,7 +98,7 @@ const distanceCollisionCalc = (objectPosX, objectPosY) => {
 
   if (d < 50) {
     score();
-    difficulty();
+    itemSpeedIncrease();
     chimeSound.play();
     items.x = 700;
     items.y = random (100, 300);
@@ -156,14 +166,32 @@ const gameStateCheck = (requiredWinPointsValue) => {
 
 gameStateCheck(requiredWinPointsValue);
 
+
+const onFileLoad = () => {
+  console.log(`JSON VALUE IS: ${colorJSON["color2"]}`);
+  text(`Bonus: ${colorJSON["color2"]}`, 300, 120);
+}
+
+const jsonColorLoader = () => {
+  colorJSON = loadJSON('files/colors.json', onFileLoad);
+}
+
+
 const uiDisplay = () => {
+  //const bonusColors = import ('./files/colors.json');
+  jsonColorLoader();
+
+
   if (player.lives > -1 && points < requiredWinPointsValue){
   fill(255, 255, 255);
   text(`Points: ${points}`, 540, 60);
-  text(`Lives: ${player.lives}`, 540, 80);
-  text(`Bonus: ${bonus} x`, 540, 100); 
+  text(`Lives: ${player.lives}`, 540, 80); 
   text(`F1 = Help  R = Reset  Space = Jump`, 10, 25);
   text(` ${Math.floor(volumeButtonValue*100)}%`, 630, 25);
+  fill(255, 155, 255);
+  text(`Bonus: ${bonus} x`, 290, 100);
+  //text(`json output: ${color1}`, 290, 150);
+  
 }
 }
 
@@ -213,5 +241,6 @@ const bgmTracker = () => {
   }
 
 bgmTracker();
+
 }
 
