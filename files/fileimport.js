@@ -14,6 +14,8 @@ let speakeroffSprite;
 let volumeSprite;
 let volumeSprite2;
 let startUpSound;
+let colors;
+
 
 function preload(){
     errorSound = loadSound(`Sound/Windows_XP_Error_Sound_Effect.mp3`);
@@ -32,4 +34,6 @@ function preload(){
     speakeroffSprite = loadImage(`Sprites/speaker_off.png`);
     volumeSprite = loadImage(`Sprites/volumePlusGreen.png`);
     volumeSprite2 = loadImage(`Sprites/volumeMinusRed.png`);
+
+    colors = loadJSON('files/colors.json');
     }

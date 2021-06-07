@@ -1,8 +1,7 @@
-let colorJSON = null;
-
 'use strict';
 
 function setup (){
+  
   canvas = createCanvas (700, 450); 
 
   const centerCanvas = () => {
@@ -29,10 +28,13 @@ function setup (){
     startUpSound.play();
 
 
+    
+console.log(`Json value ${colors.bonuscolor}`);    
 
+    
+   
 
-
-
+   
 
 
 }
@@ -91,6 +93,49 @@ const bonusReset = () => {
 }
 
 bonusReset(); 
+
+let bonusColor = 0;
+
+const bonusStateColorCheck = () => {
+  switch (bonus) {
+    case 1:
+      bonusColor = colors.color1;
+      break;
+    case 2:
+      bonusColor = colors.color2;
+      break;
+    case 3:
+      bonusColor = colors.color3;
+      break; 
+    case 4:
+      bonusColor = colors.color4; 
+      break;
+    case 5:
+      bonusColor = colors.color5;  
+      break; 
+    case 6:
+      bonusColor = colors.color6; 
+      break;
+    case 7:
+      bonusColor = colors.color7; 
+      break;
+    case 8:
+      bonusColor = colors.color8; 
+      break;
+    case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+      bonusColor = colors.color9; 
+      break;
+    default: bonusColor = colors.color10;
+  }
+}
+
+bonusStateColorCheck();
 
 //Object movement, collision and creation
 const distanceCollisionCalc = (objectPosX, objectPosY) => {
@@ -166,32 +211,15 @@ const gameStateCheck = (requiredWinPointsValue) => {
 
 gameStateCheck(requiredWinPointsValue);
 
-
-const onFileLoad = () => {
-  console.log(`JSON VALUE IS: ${colorJSON["color2"]}`);
-  text(`Bonus: ${colorJSON["color2"]}`, 300, 120);
-}
-
-const jsonColorLoader = () => {
-  colorJSON = loadJSON('files/colors.json', onFileLoad);
-}
-
-
 const uiDisplay = () => {
-  //const bonusColors = import ('./files/colors.json');
-  jsonColorLoader();
-
-
   if (player.lives > -1 && points < requiredWinPointsValue){
   fill(255, 255, 255);
   text(`Points: ${points}`, 540, 60);
   text(`Lives: ${player.lives}`, 540, 80); 
   text(`F1 = Help  R = Reset  Space = Jump`, 10, 25);
   text(` ${Math.floor(volumeButtonValue*100)}%`, 630, 25);
-  fill(255, 155, 255);
+  fill(bonusColor);
   text(`Bonus: ${bonus} x`, 290, 100);
-  //text(`json output: ${color1}`, 290, 150);
-  
 }
 }
 
@@ -202,6 +230,7 @@ const obstacleDifficulty = (pointThresholdDifficulty, obstacleArrayLength) => {
   obstacles.push(new Obstacle()); //punkte und index check um anzahl neuer objekte zu kontrollieren in draw()
 }
 }
+
 obstacleDifficulty(1000, 3);
 obstacleDifficulty(3000, 4);
 obstacleDifficulty(6000, 5);
