@@ -26,17 +26,6 @@ function setup (){
     items = new Items();
 
     startUpSound.play();
-
-
-    
-console.log(`Json value ${colors.bonuscolor}`);    
-
-    
-   
-
-   
-
-
 }
 
 function draw(){ 
@@ -55,6 +44,7 @@ function draw(){
     image(volumeSprite2, volumeButton.x, volumeButton.y);
     volumeButton2.show();
     image(volumeSprite, volumeButton2.x, volumeButton2.y);
+    image(hiscoreButtonSprite, hiscoreButton.x, hiscoreButton.y)
     
 const movement = () => {
   if (keyIsDown(32) && player.y > ceiling.y +20)  {
@@ -187,6 +177,8 @@ const gameOver = () => {
   fill(255, 255);
   background(bluescreenSprite, width, height);
   text(`High Score: ${points}`, (width/2 -100), 60);
+  hiscoreButton2.x = width/2 - 25;
+  hiscoreButton2.y = height/2 + 90;
   noLoop();
 }
 

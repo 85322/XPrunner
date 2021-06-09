@@ -15,6 +15,9 @@ let volumeSprite;
 let volumeSprite2;
 let startUpSound;
 let colors;
+let hiscoreButtonSprite;
+let hiscoreButtonSprite2;
+let hiscore;
 
 
 function preload(){
@@ -28,12 +31,15 @@ function preload(){
     obstacleSprite = loadImage(`Sprites/IE_logo.png`);
     itemSprite = loadImage(`Sprites/star_logo3.png`);
     backgroundSprite = loadImage(`Sprites/xp_logon2.png`);
-    bluescreenSprite = loadImage(`Sprites/bluescreen3.png`);
+    bluescreenSprite = loadImage(`Sprites/bluescreen4.png`);
     blissSprite = loadImage(`Sprites/bliss.png`);
     speakeronSprite = loadImage(`Sprites/speaker_on2.png`);
     speakeroffSprite = loadImage(`Sprites/speaker_off.png`);
     volumeSprite = loadImage(`Sprites/volumePlusGreen.png`);
     volumeSprite2 = loadImage(`Sprites/volumeMinusRed.png`);
+    hiscoreButtonSprite = loadImage(`Sprites/hiscoreButton5.png`);
+    hiscoreButtonSprite2 = loadImage(`Sprites/hiscoreButton3.png`);
 
     colors = loadJSON('files/colors.json');
+    hiscore = loadJSON('files/highscore.json');
     }

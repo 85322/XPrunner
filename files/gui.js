@@ -8,14 +8,15 @@ const Action = {
   },
   reset2(){ 
     points = 0;
-    obstacles = [0];
-    lives = 5;
-    obstacles.x = 700;
+    player.lives = 5;
+    bonus = 0; //gehen
+    
+    obstacles.x = 700; //gehen nicht
     obstacles.y = random (150, 350);
     items.x = 700;
     items.y = random (150, 350);
     player.x = 0;
-    bonus = 0;
+    //obstacles = 0;
   }
 };
         
@@ -38,7 +39,7 @@ document.body.addEventListener(evType, keyHandler);
 //Sound
 speaker = new Speaker(490, 3);
 
-  const speakerButton = () => {
+  const speakerButtonFunc = () => {
     const d = dist(mouseX, mouseY, speaker.x, speaker.y);
       if (d < 35 && !speaker.state) {
         bgmSound.setVolume(1);
@@ -69,10 +70,37 @@ const volumeButtonPLusFunc = () => {
     }
   }
 
+hiscoreButton = new HiscoreButton(430, 0);
+
+const hiscoreButtonFunc = () => {
+  const d = dist(mouseX, mouseY, hiscoreButton.x + 25, hiscoreButton.y + 25);
+    if (d < 25 ) {
+      //let hiscore = JSON.parse(`Parsing Score`);
+      for (var i = 0; i < hiscore.Player1.length; i++) {
+        var counter = hiscore.Player1[i];
+        console.log(counter.hiscore);
+    }
+      // alert(`1 ${hiscore.Player1}\n2 ${hiscore.Player2}\n3 ${hiscore.Player3}\n4 ${hiscore.Player4}
+      // `);
+      alert(`${hiscore}`);
+    }
+  }
+
+hiscoreButton2 = new HiscoreButton(-500, -500);
+
+const hiscoreButtonEndscreenFunc = () => {
+  const d = dist(mouseX, mouseY, hiscoreButton2.x + 25, hiscoreButton2.y + 25);
+    if (d < 25 ) {
+      alert(colors.color1);
+    }
+  }
+
 function mouseClicked(){ 
-  speakerButton();
+  speakerButtonFunc();
   volumeButtonPLusFunc();
   volumeButtonMinusFunc();
+  hiscoreButtonFunc();
+  hiscoreButtonEndscreenFunc();
 }
 
 mouseClicked();
