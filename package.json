@@ -1,0 +1,27 @@
+{
+  "name": "p5rr",
+  "version": "1.0.0",
+  "description": "gane project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anon853/p5rr.git"
+  },
+  "keywords": [
+    "game",
+    "p5rr"
+  ],
+  "author": "Anon853",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anon853/p5rr/issues"
+  },
+  "homepage": "https://github.com/Anon853/p5rr#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
