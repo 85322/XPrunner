@@ -1,6 +1,3 @@
 {
-    "Player1" : "500",
-    "Player2" : "400",
-    "Player3" : "700",
-    "Player4" : "1500"
+    "hiscoreValues" : [500, 350, 1000, 25]
 }

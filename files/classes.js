@@ -2,7 +2,7 @@ let player;
 let items;
 let ceiling;
 let points = 0;
-let requiredWinPointsValue = 700;
+let requiredWinPointsValue = 10000;
 let bonus = 0;
 let canvas;
 let speaker;
@@ -17,7 +17,7 @@ class Player {
       this.speedY = 10;
       this.speedX = 0;
       this.gravitation = 0.5; 
-      this.lives = 3;
+      this.lives = 5;
     }    
     move(){
       this.y = this.y + this.speedY;

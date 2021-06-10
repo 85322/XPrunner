@@ -75,16 +75,15 @@ hiscoreButton = new HiscoreButton(430, 0);
 const hiscoreButtonFunc = () => {
   const d = dist(mouseX, mouseY, hiscoreButton.x + 25, hiscoreButton.y + 25);
     if (d < 25 ) {
-      //let hiscore = JSON.parse(`Parsing Score`);
-      for (var i = 0; i < hiscore.Player1.length; i++) {
-        var counter = hiscore.Player1[i];
-        console.log(counter.hiscore);
+      // for (let i = 0; i < hiscore.hiscoreValues.length; i++) {
+       //hiscore.hiscoreValues.sort();
+        console.log(hiscore.hiscoreValues.sort(function(a, b){return a - b}));
+        alert(`${hiscore.hiscoreValues.sort(function(a, b){return a + b})}`);
     }
-      // alert(`1 ${hiscore.Player1}\n2 ${hiscore.Player2}\n3 ${hiscore.Player3}\n4 ${hiscore.Player4}
-      // `);
-      alert(`${hiscore}`);
+      //alert(`${hiscore.cars[1]}`);
+      hiscore.hiscoreValues.push("333");
     }
-  }
+  //}
 
 hiscoreButton2 = new HiscoreButton(-500, -500);
 
