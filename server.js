@@ -1,8 +1,4 @@
-// Load Node modules
-var express = require('express');
-// Initialise Express
-var app = express();
-// Render static files
+let express = require('express');
+let app = express();
 app.use(express.static('public'));
-// Port website will run on
 app.listen(8080);
