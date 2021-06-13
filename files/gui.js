@@ -16,7 +16,7 @@ const Action = {
     items.x = 700;
     items.y = random (150, 350);
     player.x = 0;
-    //obstacles = 0;
+    //obstacles = 0; //vielleicht foreach dadrin aendern
   }
 };
         
@@ -72,16 +72,28 @@ const volumeButtonPLusFunc = () => {
 
 hiscoreButton = new HiscoreButton(430, 0);
 
+ 
+
+const sqlCall = () => {
+  db.each("SELECT id, dt FROM user", function(err, row){
+    console.log(collectedData);
+    
+  });
+}
+
 const hiscoreButtonFunc = () => {
   const d = dist(mouseX, mouseY, hiscoreButton.x + 25, hiscoreButton.y + 25);
     if (d < 25 ) {
-      // for (let i = 0; i < hiscore.hiscoreValues.length; i++) {
-       //hiscore.hiscoreValues.sort();
-        console.log(hiscore.hiscoreValues.sort(function(a, b){return a - b}));
-        alert(`${hiscore.hiscoreValues.sort(function(a, b){return a + b})}`);
+
+      sqlCall();
+
+
+        // console.log(hiscore.hiscoreValues.sort(function(a, b){return a - b}));
+        // alert(`${hiscore.hiscoreValues.sort(function(a, b){return a + b})}`); geht, aber is von json
     }
       //alert(`${hiscore.cars[1]}`);
-      hiscore.hiscoreValues.push("333");
+      //hiscore.hiscoreValues.push("333");
+
     }
   //}
 
