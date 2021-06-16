@@ -37,7 +37,7 @@ document.body.addEventListener(evType, keyHandler);
 });
 
 //Sound
-speaker = new Speaker(490, 3);
+speaker = new Speaker(510, 3);
 
   const speakerButtonFunc = () => {
     const d = dist(mouseX, mouseY, speaker.x, speaker.y);
@@ -85,24 +85,22 @@ const hiscoreButtonFunc = () => {
   const d = dist(mouseX, mouseY, hiscoreButton.x + 25, hiscoreButton.y + 25);
     if (d < 25 ) {
 
-      sqlCall();
+      //sqlCall(); //geht noch nicht
 
 
-        // console.log(hiscore.hiscoreValues.sort(function(a, b){return a - b}));
-        // alert(`${hiscore.hiscoreValues.sort(function(a, b){return a + b})}`); geht, aber is von json
+        console.log(hiscore.hiscoreValues.sort(function(a, b){return a - b}));
+        alert(`Test values in order: ${hiscore.hiscoreValues.sort(function(a, b){return a + b})}`); 
     }
-      //alert(`${hiscore.cars[1]}`);
-      //hiscore.hiscoreValues.push("333");
 
     }
-  //}
+
 
 hiscoreButton2 = new HiscoreButton(-500, -500);
 
 const hiscoreButtonEndscreenFunc = () => {
   const d = dist(mouseX, mouseY, hiscoreButton2.x + 25, hiscoreButton2.y + 25);
     if (d < 25 ) {
-      alert(colors.color1);
+      alert("Not part of beta");
     }
   }
 
