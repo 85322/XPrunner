@@ -189,7 +189,7 @@ const win = () => {
     speaker = 0;  
     background(blissSprite, width, height);
     fill(0, 255);
-    text(`High Score: ${points}\nYou win!`, (width/2 -100), height/2);
+    text(`High Score: ${points}\nYou win!\nPress -R- to restart.`, (width/2 -100), height/2);
     noLoop();
 }
 
