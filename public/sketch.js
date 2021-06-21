@@ -177,11 +177,7 @@ if (items.x < width * -1) {
 
 //Application states
 
-const scoreInput = () => {
-  let name = prompt("Please enter your name", "Player");
-  console.log('Sending input: ' + JSON.stringify(name) + 'Score of: ' + points);
-  loadJSON('add/' + name + '/' + points); //GET json request als POST
-}
+
 
 
 const gameOver = () => {
@@ -193,7 +189,7 @@ const gameOver = () => {
   text(`High Score: ${points}`, (width/2 -100), 60);
   hiscoreButton2.x = width/2 - 25;
   hiscoreButton2.y = height/2 + 90;
-  scoreInput();
+  //scoreInput();
   noLoop();
 }
 
@@ -205,7 +201,7 @@ const win = () => {
     background(blissSprite, width, height);
     fill(0, 255);
     text(`High Score: ${points}\nYou win!\nPress -R- to restart.`, (width/2 -100), height/2);
-    scoreInput();
+    //scoreInput();
     noLoop();
 }
 

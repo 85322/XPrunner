@@ -14,5 +14,8 @@
   "PointPost2": 300,
   "PointPost3": 900,
   " Player": 400,
-  "Player2": 1000
+  "Player2": 1000,
+  "Player3": 400,
+  "null": 500,
+  "Player4": 100
 }

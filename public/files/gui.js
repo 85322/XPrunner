@@ -70,6 +70,15 @@ const volumeButtonPLusFunc = () => {
     }
   }
 
+
+//Score
+
+const scoreInput = () => {
+  let name = prompt("Please enter your name", "Player");
+  console.log('Sending input: ' + JSON.stringify(name) + 'Score of: ' + points);
+  loadJSON('add/' + name + '/' + points); //GET json request als POST
+}
+
 hiscoreButton = new HiscoreButton(430, 0);
 
 const hiscoreButtonFunc = () => {
@@ -89,7 +98,8 @@ const hiscoreButtonEndscreenFunc = () => {
   const d = dist(mouseX, mouseY, hiscoreButton2.x + 25, hiscoreButton2.y + 25);
     if (d < 25 ) {
       //alert(`Test values ${hiscore.hiscoreValues.sort(function(a, b){return a + b})}`);
-      getDataJSON();
+      //getDataJSON();
+      scoreInput();
     }
   }
 
