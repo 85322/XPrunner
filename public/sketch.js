@@ -1,11 +1,11 @@
 'use strict';
 
-const { stringify } = require("uuid");
+// const { stringify } = require("uuid");
 
-const getDataJSON = (data) => {
-  alert('Callback data' + JSON.stringify(data, null, 2));
-}
-loadJSON('/all', getDataJSON);
+// const getDataJSON = (data) => {
+//   alert('Callback data' + JSON.stringify(data, null, 2));
+// }
+// loadJSON('/all', getDataJSON);
 
 function setup (){
   canvas = createCanvas (700, 450); 
@@ -177,9 +177,6 @@ if (items.x < width * -1) {
 
 //Application states
 
-
-
-
 const gameOver = () => {
   bgmSound.setVolume(0);
   obstacles.length = 0;
@@ -187,9 +184,10 @@ const gameOver = () => {
   fill(255, 255);
   background(bluescreenSprite, width, height);
   text(`High Score: ${points}`, (width/2 -100), 60);
-  hiscoreButton2.x = width/2 - 25;
+  hiscoreButton2.x = width/2 + 45;
   hiscoreButton2.y = height/2 + 90;
-  //scoreInput();
+  hiscoreButton.x = width/2 - 90;
+  hiscoreButton.y = height/2 + 90;
   noLoop();
 }
 
@@ -201,7 +199,6 @@ const win = () => {
     background(blissSprite, width, height);
     fill(0, 255);
     text(`High Score: ${points}\nYou win!\nPress -R- to restart.`, (width/2 -100), height/2);
-    //scoreInput();
     noLoop();
 }
 

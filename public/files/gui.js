@@ -84,10 +84,49 @@ hiscoreButton = new HiscoreButton(430, 0);
 const hiscoreButtonFunc = () => {
   const d = dist(mouseX, mouseY, hiscoreButton.x + 25, hiscoreButton.y + 25);
     if (d < 25 ) { 
-        console.log(hiscore.hiscoreValues.sort(function(a, b){return a - b}));
-        alert(`Test values in order: ${hiscore.hiscoreValues.sort(function(a, b){return a + b})}`); 
+        //console.log(hiscore.hiscoreValues.sort(function(a, b){return a - b}));
+        //alert(`Test values in order: ${hiscore.hiscoreValues.sort(function(a, b){return a + b})}`); 
+        //alert(`Test values in order: ${data.sort(function(a, b){return a + b})}`);  geht noch nicht
+        const getDataJSON = (data) => {
+
+
+
+          data.sort(function(a, b){return a - b});
+          
+          alert (JSON.stringify(data));
+
+
+
+//           let unsorted_data = data;
+
+// function sortData(key, data, type) {
+//   let ordered = {};
+//   let compareFunction = function(a, b) {
+//     return data[b][key] - data[a][key];
+//   };
+//   if (type === "asc") {
+//     compareFunction = function(a, b) {
+//       return data[a][key] - data[b][key];
+//     }
+//   }
+//   Object.keys(data).sort(compareFunction).forEach(function(key) {
+//     ordered[key] = data[key];
+//   });
+//   return ordered;
+// }
+
+
+// alert(JSON.stringify(sortData("item1", unsorted_data, 'asc')));
+
+
+         
+          // alert('Callback data' + JSON.stringify(callbackData, null, 2));
+        }
+        //loadJSON('search/word2', getDataJSON);
+        loadJSON('all', getDataJSON);
  }
 }
+
 
 
 
