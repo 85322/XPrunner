@@ -30,7 +30,7 @@ const getReply = (request, response) => {
  response.send('You typed: ' + data.example);
 }
 
-app.get('/reply/:example', getReply) //das :example gilt als parameter was wir speicherns in data und mit dem namen als object attribut auch ansprechen
+app.get('/reply/:example', getReply) //das :example gilt als parameter was wir speichern in data und mit dem namen als object attribut auch ansprechen
 //http://localhost:3000/reply/test3
 
 const getAll = (request, response) => {

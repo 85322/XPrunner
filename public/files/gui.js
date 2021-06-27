@@ -6,17 +6,17 @@ const Action = {
   reset(){
     location.reload();
   },
-  reset2(){ 
-    points = 0;
+  reset2(){ //canvas reset unfertig
+    points = 0;//gehen
     player.lives = 5;
-    bonus = 0; //gehen
+    bonus = 0; 
     
-    obstacles.x = 700; //gehen nicht
+    obstacles.x = 700; //gehen nicht //existierendes array ansprechen
     obstacles.y = random (150, 350);
     items.x = 700;
     items.y = random (150, 350);
     player.x = 0;
-    //obstacles = 0; //vielleicht foreach dadrin aendern
+    obstacles = 0;
   }
 };
         
@@ -37,9 +37,10 @@ document.body.addEventListener(evType, keyHandler);
 });
 
 //Sound
+
 speaker = new Speaker(510, 3);
 
-  const speakerButtonFunc = () => {
+  const speakerButtonFunc = () => { //BGM mute funktion
     const d = dist(mouseX, mouseY, speaker.x, speaker.y);
       if (d < 35 && !speaker.state) {
         bgmSound.setVolume(1);
@@ -70,74 +71,40 @@ const volumeButtonPLusFunc = () => {
     }
   }
 
-
 //Score
 
 const scoreInput = () => {
   let name = prompt("Please enter your name", "Player");
-  console.log('Sending input: ' + JSON.stringify(name) + 'Score of: ' + points);
-  loadJSON('add/' + name + '/' + points); //GET json request als POST
+  alert('Sending Name: ' + JSON.stringify(name) + '\n\nScore of: ' + points + '\n\nCheck /all in API for full details');
+  loadJSON('add/' + name + '/' + points); //GET request als indirekter POST ins JSON file zu schreiben
 }
+
+const getDataJSON = (data) => {
+  let parsedScores = Object.values(data); 
+
+  parsedScores.sort((function(a, b){return a - b})); //parsing key values aus JSON file
+
+  console.log("Data length: " + data);
+  console.log("Data Scores + Names : " + JSON.stringify(data));
+  console.log("Scores in order : " + JSON.stringify(parsedScores));
+  alert("Scores in order : " + JSON.stringify(parsedScores) + "\n\nCheck /all in API for full details");
+}
+
 
 hiscoreButton = new HiscoreButton(430, 0);
 
 const hiscoreButtonFunc = () => {
   const d = dist(mouseX, mouseY, hiscoreButton.x + 25, hiscoreButton.y + 25);
     if (d < 25 ) { 
-        //console.log(hiscore.hiscoreValues.sort(function(a, b){return a - b}));
-        //alert(`Test values in order: ${hiscore.hiscoreValues.sort(function(a, b){return a + b})}`); 
-        //alert(`Test values in order: ${data.sort(function(a, b){return a + b})}`);  geht noch nicht
-        const getDataJSON = (data) => {
-
-
-
-          data.sort(function(a, b){return a - b});
-          
-          alert (JSON.stringify(data));
-
-
-
-//           let unsorted_data = data;
-
-// function sortData(key, data, type) {
-//   let ordered = {};
-//   let compareFunction = function(a, b) {
-//     return data[b][key] - data[a][key];
-//   };
-//   if (type === "asc") {
-//     compareFunction = function(a, b) {
-//       return data[a][key] - data[b][key];
-//     }
-//   }
-//   Object.keys(data).sort(compareFunction).forEach(function(key) {
-//     ordered[key] = data[key];
-//   });
-//   return ordered;
-// }
-
-
-// alert(JSON.stringify(sortData("item1", unsorted_data, 'asc')));
-
-
-         
-          // alert('Callback data' + JSON.stringify(callbackData, null, 2));
-        }
-        //loadJSON('search/word2', getDataJSON);
         loadJSON('all', getDataJSON);
  }
 }
-
-
-
-
 
 hiscoreButton2 = new HiscoreButton(-500, -500);
 
 const hiscoreButtonEndscreenFunc = () => {
   const d = dist(mouseX, mouseY, hiscoreButton2.x + 25, hiscoreButton2.y + 25);
     if (d < 25 ) {
-      //alert(`Test values ${hiscore.hiscoreValues.sort(function(a, b){return a + b})}`);
-      //getDataJSON();
       scoreInput();
     }
   }
@@ -151,8 +118,3 @@ function mouseClicked(){
 }
 
 mouseClicked();
-
-
-//high score json data
-
-
