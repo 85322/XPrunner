@@ -173,8 +173,8 @@ if (items.x < width * -1) {
 const baseGameEndSequence = () => {
   bgmSound.setVolume(0);
   obstacles.length = 0;
-  speaker = 0;
-  //let hiscoreButton2 = new HiscoreButton(width/2 + 45, height/2 + 90);
+  speaker.x = -500;
+  speaker.y = -500;
   hiscoreButton2.x = width/2 + 45;
   hiscoreButton2.y = height/2 + 90;
   hiscoreButton.x = width/2 - 90;
@@ -191,9 +191,9 @@ const gameOver = () => {
 
 const win = () => {
   baseGameEndSequence();
+  fill(0, 255);
   winSound.play();
   background(blissSprite, width, height);
-  fill(0, 255);
   text(`High Score: ${points}\nYou win!\nPress -R- to restart.`, (width/2 -100), height/2);
 }
 

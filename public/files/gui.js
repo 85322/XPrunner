@@ -17,7 +17,8 @@ const Action = {
     items.length = 0;
     items.x = 700;
     items.y = random (150, 350);
-    speaker = new Speaker(490, 3);
+    speaker.x = 490;
+    speaker.y = 3;
     hiscoreButton.x = 415;
     hiscoreButton.y = 0;
     hiscoreButton2.x = -500;
@@ -89,7 +90,6 @@ const getDataJSON = (data) => {
 
   parsedScores.sort((function(a, b){return a - b})); //parsing key values aus JSON file
 
-  console.log("Data length: " + data);
   console.log("Data Scores + Names : " + JSON.stringify(data));
   console.log("Scores in order : " + JSON.stringify(parsedScores));
   alert("Scores in order : " + JSON.stringify(parsedScores) + "\n\nCheck /all in API for full details");
@@ -108,13 +108,11 @@ const hiscoreButtonFunc = () => {
 hiscoreButton2 = new HiscoreButton(-500, -500);
 
 const hiscoreButtonEndscreenFunc = () => {
-  if (player.lives <= -1){
   const d = dist(mouseX, mouseY, hiscoreButton2.x + 25, hiscoreButton2.y + 25);
     if (d < 25 ) {
       scoreInput();
     }
   }
-} 
 
 function mouseClicked(){ 
   speakerButtonFunc();
