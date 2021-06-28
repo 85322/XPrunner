@@ -32,7 +32,7 @@ function preload(){
     itemSprite = loadImage(`Sprites/star_logo3.png`);
     backgroundSprite = loadImage(`Sprites/xp_logon2.png`);
     bluescreenSprite = loadImage(`Sprites/bluescreen4.png`);
-    blissSprite = loadImage(`Sprites/bliss.png`);
+    blissSprite = loadImage(`Sprites/bliss2.png`);
     speakeronSprite = loadImage(`Sprites/speaker_on2.png`);
     speakeroffSprite = loadImage(`Sprites/speaker_off.png`);
     volumeSprite = loadImage(`Sprites/volumePlusGreen.png`);

@@ -1,12 +1,5 @@
 'use strict';
 
-// const { stringify } = require("uuid");
-
-// const getDataJSON = (data) => {
-//   alert('Callback data' + JSON.stringify(data, null, 2));
-// }
-// loadJSON('/all', getDataJSON);
-
 function setup (){
   canvas = createCanvas (700, 450); 
 
@@ -177,13 +170,11 @@ if (items.x < width * -1) {
 
 //Application states
 
-const gameOver = () => {
+const baseGameEndSequence = () => {
   bgmSound.setVolume(0);
   obstacles.length = 0;
   speaker = 0;
-  fill(255, 255);
-  background(bluescreenSprite, width, height);
-  text(`High Score: ${points}`, (width/2 -100), 60);
+  //let hiscoreButton2 = new HiscoreButton(width/2 + 45, height/2 + 90);
   hiscoreButton2.x = width/2 + 45;
   hiscoreButton2.y = height/2 + 90;
   hiscoreButton.x = width/2 - 90;
@@ -191,15 +182,19 @@ const gameOver = () => {
   noLoop();
 }
 
+const gameOver = () => {
+  baseGameEndSequence();
+  fill(255, 255);
+  background(bluescreenSprite, width, height);
+  text(`High Score: ${points}`, (width/2 -100), 60);
+}
+
 const win = () => {
-    winSound.play();
-    bgmSound.setVolume(0);
-    obstacles.length = 0;
-    speaker = 0;  
-    background(blissSprite, width, height);
-    fill(0, 255);
-    text(`High Score: ${points}\nYou win!\nPress -R- to restart.`, (width/2 -100), height/2);
-    noLoop();
+  baseGameEndSequence();
+  winSound.play();
+  background(blissSprite, width, height);
+  fill(0, 255);
+  text(`High Score: ${points}\nYou win!\nPress -R- to restart.`, (width/2 -100), height/2);
 }
 
 const gameStateCheck = (requiredWinPointsValue) => {

@@ -10,5 +10,7 @@
   "PlayerR": 400,
   "PlayerS": 2100,
   "PlayerT": 1700,
-  "PlayerE": 1400
+  "PlayerE": 1400,
+  "null": 200,
+  "Playernew": 100
 }

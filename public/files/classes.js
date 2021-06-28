@@ -94,7 +94,7 @@ class Player {
     show(){
       noStroke();
       fill(255, 0);
-      rect(this.x, this.y, 30, 30)
+      rect(this.x, this.y, 25, 25)
     }
   }
   
@@ -107,7 +107,7 @@ class Player {
     show(){
       noStroke();
       fill(255, 0);
-      rect(this.x, this.y, 30, 30)
+      rect(this.x, this.y, 25, 25)
     }
   }
 

@@ -1,29 +1,34 @@
 //Hoykeys
 const Action = {
   help(){(
-    window.alert(`• Reach 10.000 points to win \n\n• Collect stars for an increasing bonus point streak \n\n• Avoid Internet Explorer \n\n•Click speaker to mute music \n\n\n\n----------------\nby github.com/Anon853 \n2021`))
+    window.alert(`• Reach 10.000 points to win \n\n• Collect stars for an increasing bonus point streak \n\n• Avoid Internet Explorer \n\n•Click speaker to mute music \n\n•Highscore list at /all in API \n\n\n\n----------------\nby github.com/Anon853 \n2021`));
   },
   reset(){
-    location.reload();
-  },
-  reset2(){ //canvas reset unfertig
-    points = 0;//gehen
+    points = 0;
     player.lives = 5;
+    player.y = 330;
     bonus = 0; 
+    obstacles.length = 0; 
     
-    obstacles.x = 700; //gehen nicht //existierendes array ansprechen
-    obstacles.y = random (150, 350);
+    for (let i = 0; i < 2; i++) {
+      obstacles[i] = new Obstacle();   
+    }
+
+    items.length = 0;
     items.x = 700;
     items.y = random (150, 350);
-    player.x = 0;
-    obstacles = 0;
+    speaker = new Speaker(490, 3);
+    hiscoreButton.x = 415;
+    hiscoreButton.y = 0;
+    hiscoreButton2.x = -500;
+    hiscoreButton2.y = -500;
+    loop();
   }
 };
         
 const keyAction = {
     F1: { keydown: Action.help},
     r: { keydown: Action.reset},
-    p: {keydown: Action.reset2}
 };
         
 const keyHandler = (ev) => {
@@ -38,14 +43,14 @@ document.body.addEventListener(evType, keyHandler);
 
 //Sound
 
-speaker = new Speaker(510, 3);
+speaker = new Speaker(490, 3);
 
   const speakerButtonFunc = () => { //BGM mute funktion
     const d = dist(mouseX, mouseY, speaker.x, speaker.y);
-      if (d < 35 && !speaker.state) {
+      if (d < 25 && !speaker.state) {
         bgmSound.setVolume(1);
         speaker.state = true;
-      } else if (d < 30 && speaker.state){
+      } else if (d < 25 && speaker.state){
         bgmSound.setVolume(0);
         speaker.state = false;
       }
@@ -56,8 +61,8 @@ volumeButton = new VolumeButton(550, 3);
 let volumeButtonValue = 1;
 
 const volumeButtonMinusFunc = () => {
-  const d = dist(mouseX, mouseY, volumeButton.x, volumeButton.y);
-      if (d < 35 && volumeButtonValue > 0.1 ) {
+  const d = dist(mouseX - 12, mouseY, volumeButton.x, volumeButton.y);
+      if (d < 25 && volumeButtonValue > 0.1 ) {
         volumeButtonValue = volumeButtonValue - 0.1;
       }
     }
@@ -65,7 +70,7 @@ const volumeButtonMinusFunc = () => {
 volumeButton2 = new VolumeButton(610, 3);
 
 const volumeButtonPLusFunc = () => {
-  const d = dist(mouseX, mouseY, volumeButton2.x, volumeButton2.y);
+  const d = dist(mouseX -12, mouseY, volumeButton2.x, volumeButton2.y);
     if (d < 35 && volumeButtonValue <= 0.9 ) {
       volumeButtonValue = volumeButtonValue + 0.1;
     }
@@ -91,7 +96,7 @@ const getDataJSON = (data) => {
 }
 
 
-hiscoreButton = new HiscoreButton(430, 0);
+hiscoreButton = new HiscoreButton(415, 0);
 
 const hiscoreButtonFunc = () => {
   const d = dist(mouseX, mouseY, hiscoreButton.x + 25, hiscoreButton.y + 25);
@@ -103,11 +108,13 @@ const hiscoreButtonFunc = () => {
 hiscoreButton2 = new HiscoreButton(-500, -500);
 
 const hiscoreButtonEndscreenFunc = () => {
+  if (player.lives <= -1){
   const d = dist(mouseX, mouseY, hiscoreButton2.x + 25, hiscoreButton2.y + 25);
     if (d < 25 ) {
       scoreInput();
     }
   }
+} 
 
 function mouseClicked(){ 
   speakerButtonFunc();
