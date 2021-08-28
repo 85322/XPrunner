@@ -1,9 +1,4 @@
 {
-  "word1": 500,
-  "word2": 1000,
-  "word3": 750,
-  "Abc": 600,
-  "word4": 555,
   "Player": 999,
   "Player123": 300,
   "PlayerA": 2800,
@@ -11,8 +6,11 @@
   "PlayerS": 2100,
   "PlayerT": 1700,
   "PlayerE": 1400,
-  "null": 100,
+  "null": 7600,
   "Playernew": 100,
   "Player6": 9200,
-  "Offlineplayer": 600
+  "AWS Player": 9200,
+  "PlayerAWS": 7000,
+  "Lady": 7500,
+  "AWSplayer": 9300
 }
