@@ -2,7 +2,8 @@ var fs = require('fs'); //node's file system
 
 var data = fs.readFileSync('./words.json'); //liest json file //sync "blockt" bis 
 var words = JSON.parse(data);  //parse raw json data zu js objekt //naechster code
- //console.log(words);                       //beendet wurde. async laesst weiteren server
+var words = JSON.parse(data);               //parse raw json data zu js objekt //naechster code                      
+                                            //beendet wurde. async laesst weiteren server
                                            //verlauf zu vom user
 var express = require('express');
 var app = express();
@@ -53,7 +54,7 @@ const getAdd = (request, response) => { //nimmt aus beiden paramatern und
     words[word] = score;  //key value syntax
 
     const finished = (err) => { //callback nach upload
-    console.log('- Word added to words.json -');
+    console.log('- Entry added to words.json -');
     reply = {
         word : word,
         score : score,
