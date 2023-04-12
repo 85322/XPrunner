@@ -13,7 +13,7 @@ const listening = () => {
     console.log('- Listening -')
 }
 
-var server = app.listen(5500, listening);
+var server = app.listen(3000, listening);
 
 app.use(express.static('public')); //ordner fuer index.html usw
 
@@ -24,7 +24,7 @@ const getFile = (request, response) => {
 //Konzept von ROUTE Restful
 
 app.get('/files', getFile); //files kann eine funktion sein als GET request, benutzt dann die callback funktion getFile die wir definieren koennen
-//http://localhost:5500/files  
+//http://localhost:3000/files  
 
 const getReply = (request, response) => {
  let data = request.params;
@@ -32,7 +32,7 @@ const getReply = (request, response) => {
 }
 
 app.get('/reply/:example', getReply) //das :example gilt als parameter was wir speichern in data und mit dem namen als object attribut auch ansprechen
-//http://localhost:5500/reply/test3
+//http://localhost:3000/reply/test3
 
 const getAll = (request, response) => {
     response.send(words); //express formats js object into JSON. API request
@@ -73,7 +73,7 @@ response.send(reply);
 
 app.get('/add/:word/:score?', getAdd); //such-anfrage, wenn parameter dann found + value
                                         //sonst not found ohne value
-                                        //http://localhost:5500/search/word1
+                                        //http://localhost:3000/search/word1
 const getSearch = (request, response) => {
     let word = request.params.word;
     let reply;
